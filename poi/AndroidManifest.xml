@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.artesanos"
+      android:versionCode="1"
+      android:versionName="1.0"
+      android:debuggable="true">
+<application android:label="@string/app_name" android:icon="@drawable/poi2">
+<activity android:name=".PantallaSplash"
+	android:label="@string/app_name"
+	android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+</activity>
+<activity android:name="listadoCategorias"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+ <activity android:name="listadoEstablecimientos"
+ android:theme="@android:style/Theme.NoTitleBar">
+ </activity>
+<uses-library android:name="com.google.android.maps" />
+<activity android:name="MapaEstablecimiento"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+<activity android:name="InformacionEstablecimiento"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+<activity android:name="ListadoPoi"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+<activity android:name="Configuracion"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+<activity android:name="ImagenEstablecimiento"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+</application>
+    <uses-sdk android:minSdkVersion="3" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.CALL_PHONE" />
+<uses-permission android:name="android.permission.CALL_PRIVILEGED" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<application android:name=".listaEstablecimientos"  android:icon="@drawable/icon" 
+       android:label="@string/app_name"></application>
+
+
+
+</manifest> 

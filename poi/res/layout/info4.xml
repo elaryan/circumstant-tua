@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:id="@+id/ScrollView01"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout
+android:id="@+id/widget35"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+xmlns:android="http://schemas.android.com/apk/res/android" android:scrollbars="horizontal|vertical">
+<TableLayout
+android:id="@+id/widget47"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+
+>
+<TableRow android:id="@+id/filanombre" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent">
+<TextView
+android:text="TextView" android:id="@+id/nombre" android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="1" android:layout_gravity="center_horizontal">
+</TextView>
+
+</TableRow>
+<Gallery android:id="@+id/Gallery01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Gallery>
+
+<TableRow android:id="@+id/widget53" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/descripcion">
+</TextView>
+
+
+</TableRow><TableRow android:id="@+id/filadireccion" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+<ImageView 
+android:id="@+id/direccionimg" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/direccion">
+</ImageView>
+<TextView 
+android:text="@+id/TextView01" 
+android:id="@+id/direccion" 
+android:layout_height="fill_parent" android:layout_width="fill_parent">
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/filallamar"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<ImageView 
+android:id="@+id/imgvTelefono" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/telefono">
+</ImageView>
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="TextView" android:id="@+id/telefono">
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/filaweb"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<ImageView 
+android:id="@+id/ImageView02" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/web">
+</ImageView>
+<TextView 
+android:text="@+id/descripcion" 
+android:id="@+id/web" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/filaemail"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<ImageView 
+android:id="@+id/imgvEmail" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/email">
+</ImageView>
+
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="TextView"
+android:id="@+id/email">
+</TextView>
+
+
+</TableRow>
+
+
+<TableRow 
+android:id="@+id/filafacebook" 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content" 
+android:orientation="horizontal">
+<ImageView 
+android:id="@+id/ImageView03" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/facebook">
+</ImageView>
+<TextView 
+android:text="@+id/TextView01" 
+android:id="@+id/facebook" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+</TextView>
+</TableRow>
+<TableRow 
+android:id="@+id/filatwitter" 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content" 
+android:orientation="horizontal">
+<ImageView 
+android:id="@+id/ImageView04" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content"
+android:src="@drawable/twitter">
+</ImageView>
+<TextView 
+android:text="@+id/TextView01" 
+android:id="@+id/twitter" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/filabotonllamar"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:fitsSystemWindows="true">
+<Button
+android:layout_width="fill_parent"
+android:text="Button"
+android:id="@+id/llamar" android:layout_height="fill_parent" android:layout_weight="1" android:layout_gravity="fill_horizontal">
+</Button>
+</TableRow>
+<TableRow android:id="@+id/filabotoncontacto" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+<Button
+ android:id="@+id/contacto" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+android:layout_weight="1" android:layout_gravity="fill_horizontal">
+</Button>
+</TableRow>
+<TableRow android:id="@+id/filabotonemail" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent">
+<Button 
+android:id="@+id/mandarEmail" 
+android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="1" android:layout_gravity="fill_horizontal">
+</Button>
+</TableRow>
+<TableRow 
+android:id="@+id/filabotonweb" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+<Button android:text="@+id/verWeb" 
+android:id="@+id/verWeb" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" android:layout_weight="1" android:layout_gravity="fill_horizontal">
+</Button>
+</TableRow>
+<TableRow android:id="@+id/filabotonruta" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent">
+<Button android:id="@+id/verRuta" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" android:layout_weight="1" android:layout_gravity="fill_horizontal">
+</Button>
+</TableRow>
+</TableLayout>
+</RelativeLayout>
+
+</ScrollView>

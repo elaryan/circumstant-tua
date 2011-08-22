@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">Puntos de interés</string>
+
+<string name="menuestablecimiento">Opciones</string>
+<string name="menuestablecimientollamar">Llamar</string>
+<string name="menuestablecimientoemail">Enviar email</string>
+<string name="menuestablecimientocontacto">Añadir contacto</string>
+<string name="menuestablecimientoweb">Ir a web</string>
+<string name="menuestablecimientoruta">Mostrar ruta</string>
+<string name="llamar">Llamar</string>
+<string name="contacto">Añadir contacto</string>
+<string name="web">Web</string>
+<string name="email">Enviar email</string>
+<string name="ruta">Mostrar ruta</string>
+<string name="nodisponible">No disponible</string>
+<string name="botonlista">Lista</string>
+<string name="modificarradio">Modificar radio de búsqueda</string>
+<string name="cargando">Cargando...</string>
+<string name="botonmapa">Mapa</string>
+</resources>

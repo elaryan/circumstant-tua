@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/menullamar"
+   android:icon="@drawable/menullamar"
+   android:title="@string/menuestablecimientollamar" /> 
+   <item android:id="@+id/menucontacto"
+   android:icon="@drawable/menucontacto"
+   android:title="@string/menuestablecimientocontacto" />
+   <item android:id="@+id/menuemail"
+   android:icon="@drawable/menuemail"
+   android:title="@string/menuestablecimientoemail" />
+   <item android:id="@+id/menuweb"
+   android:icon="@drawable/menuweb"
+   android:title="@string/menuestablecimientoweb" />
+   <item android:id="@+id/menuruta"
+   android:icon="@drawable/menuruta"
+   android:title="@string/menuestablecimientoruta" />
+  
+</menu>

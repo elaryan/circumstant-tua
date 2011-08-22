@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+
+
+<TableLayout android:layout_toRightOf="@+id/TextView02" android:id="@+id/TableLayout01" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/mostrarMapa">
+<TableRow android:layout_toRightOf="@+id/TextView02" android:layout_height="wrap_content" android:id="@+id/TableRow01" android:layout_width="wrap_content" android:layout_below="@+id/mostrarMapa">
+<Button android:layout_height="wrap_content" android:id="@+id/mostrarMapa" android:layout_above="@+id/android:list" android:layout_toRightOf="@+id/TextView02" android:layout_width="wrap_content" android:text="@+id/Button01"></Button>
+
+</TableRow>
+<ListView android:id="@+id/android:list" android:layout_below="@+id/TextView01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_toRightOf="@+id/TextView02"></ListView>
+</TableLayout>
+
+
+
+</RelativeLayout>
