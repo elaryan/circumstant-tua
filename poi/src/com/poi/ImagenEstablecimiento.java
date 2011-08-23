@@ -1,10 +1,12 @@
-package com.artesanos;
+package com.poi;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import com.poi.R;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

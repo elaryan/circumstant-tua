@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import com.poi.R;
 
 import android.R.color;
 import android.app.Activity;
@@ -121,12 +123,15 @@ public class InformacionEstablecimiento extends Activity{
 	        LinearLayout filallamar = (LinearLayout) findViewById(R.id.layouttelefono);
 	        filallamar.setBackgroundColor(Color.WHITE);
 	        Button botonLLamar = (Button) findViewById(R.id.llamar);
-	        botonLLamar.setText(getResources().getString(R.string.llamar));
+	        
 	        //telf = bundle.getString("telefono");
 	        telf = estSeleccionado.getTelefono();
 	        if (telf.equals(null)|| telf.equals(""))
+	        {
 	        	filallamar.setVisibility(View.GONE);
+	        	botonLLamar.setVisibility(View.GONE);
 	        	//telf = getResources().getString(R.string.nodisponible);
+	        }
 	        else
 	        {
 		        textoTelf.setText(telf);
@@ -138,6 +143,7 @@ public class InformacionEstablecimiento extends Activity{
 		        		startActivity(intent);
 		        	}
 		        });
+		        botonLLamar.setText(getResources().getString(R.string.llamar));
 		        
 		       
 		        botonLLamar.setOnClickListener(new OnClickListener(){
@@ -152,9 +158,16 @@ public class InformacionEstablecimiento extends Activity{
 	        pagWeb = (TextView) findViewById(R.id.web);
 	        LinearLayout filaweb = (LinearLayout) findViewById(R.id.layoutweb);
 	        dirWeb = estSeleccionado.getWeb();
+	        
+	        Button verWeb = (Button) findViewById(R.id.verWeb);
+	        
 	        if (dirWeb.equals(null) || dirWeb.compareTo("") ==0 || dirWeb.compareTo("null")==0 || dirWeb.compareTo("No disponible")==0)
+	        {	
 	        	filaweb.setVisibility(View.GONE);
+	        	verWeb.setVisibility(View.GONE);
+	        	Log.d("pasa por aquí", "web nula: lalalalalalala");
 	        	//pagWeb.setText(getResources().getString(R.string.nodisponible));
+	        }
 	        else
 		    {
 	        	pagWeb.setText(dirWeb);	 
@@ -175,24 +188,30 @@ public class InformacionEstablecimiento extends Activity{
 		        	}
 		        });*/
 		       
-		        web =estSeleccionado.getWeb();
-		        Button verWeb = (Button) findViewById(R.id.verWeb);
-		        verWeb.setText(getResources().getString(R.string.web));
-		        verWeb.setOnClickListener(new OnClickListener(){
-		        	public void onClick(View v){
-		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
-		        		startActivity(intent);
-		        	}
-		        });
+	        
+		        	Log.d("pasa por aquí", "web no nula: nooor");
+		        	verWeb.setText(getResources().getString(R.string.web));
+			        verWeb.setOnClickListener(new OnClickListener(){
+			        	public void onClick(View v){
+			        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
+			        		startActivity(intent);
+			        	}
+			        });
+		        
+		        
 	        }
 	        	        
 	        email = (TextView) findViewById(R.id.email);
 	        mail = estSeleccionado.getEmail();
 	       // String mail = "tienda@artegal.com";
 	        LinearLayout filaEmail = (LinearLayout) findViewById(R.id.layoutemail);
+	        Button botonEmail = (Button) findViewById(R.id.mandarEmail);
 	        if (mail == null || mail.compareTo("")==0 || mail.compareTo("No disponible") == 0 || mail.compareTo("null")==0)
+	        {	
 	        	filaEmail.setVisibility(View.GONE);
+	        	botonEmail.setVisibility(View.GONE);
 	        	//mail = getResources().getString(R.string.nodisponible);
+	        }
 	        else
 	        {
 	        	email.setText(mail);	        	
@@ -206,7 +225,7 @@ public class InformacionEstablecimiento extends Activity{
 		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 			    }
 	        });  
-	        	Button botonEmail = (Button) findViewById(R.id.mandarEmail);
+	        	
 	  	        botonEmail.setText(getResources().getString(R.string.email));
 	  	        botonEmail.setOnClickListener(new OnClickListener(){
 	  		        public void onClick(View v){

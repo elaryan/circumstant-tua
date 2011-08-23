@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 import java.util.ArrayList;
 //import java.util.List;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 //import android.widget.Toast;
 
+import com.poi.R;
 import com.google.android.maps.ItemizedOverlay;
 //import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;

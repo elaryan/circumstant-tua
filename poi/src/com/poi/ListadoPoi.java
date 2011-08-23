@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.artesanos.PantallaSplash.splashhandler;
+import com.poi.R;
+import com.poi.PantallaSplash.splashhandler;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,7 +56,13 @@ public class ListadoPoi extends ListActivity{
 	String latitude = "43.364740";
 	String longitude ="-8.406450" ;
 	//de donde sacamos el valor del radio? configuracion? 
-	String radio = "600000000000";
+	
+	//sacamos el valor del radio de SharedPreferences, por defecto sería 600000000000?
+	//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	
+	//SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+	//Log.d("radiottttt", radio);	
+	//String radio = "600000000000";
 	JSONArray vocabulario;
 	
 	/*private Handler handlerObtenerEstablecimientos = new Handler() {
@@ -81,6 +89,10 @@ public class ListadoPoi extends ListActivity{
 	
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        
+	    	SharedPreferences settings = getApplicationContext().getSharedPreferences("RadioPrefs", Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
+	    	String radio =  settings.getString("radio", "600000000000");
+
 	        
 	        listaEst = new ArrayList<Establecimiento>();
 	        

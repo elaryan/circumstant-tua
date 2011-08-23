@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;

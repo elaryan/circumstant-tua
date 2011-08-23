@@ -1,8 +1,10 @@
-package com.artesanos;
+package com.poi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.poi.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -149,7 +152,7 @@ public class listadoCategorias extends Activity {
 		});    
         listaCat.setDivider(null);
         
-       /* ImageButton configuracion = (ImageButton) findViewById(R.id.botonImagenConfigurar);
+        /*ImageButton configuracion = (ImageButton) findViewById(R.id.botonImagenConfigurar);
         //configuracion.setText("Configuración");
         configuracion.setOnClickListener(new OnClickListener(){
         	public void onClick(View v){
@@ -174,10 +177,17 @@ public class listadoCategorias extends Activity {
 //        startActivityForResult(myIntent, 0);	
 //    }
     
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	  MenuInflater inflater = getMenuInflater();
-    	  inflater.inflate(R.menu.menu, menu);
+    	  inflater.inflate(R.menu.menuradio, menu);
     	  return true;
-    	}*/
+    	}
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	Intent intent = new Intent(listadoCategorias.this, Configuracion.class);
+		startActivity(intent);
+		Log.d("opcionMenu", "llamar");
+		return true;
+    }
+    
 }

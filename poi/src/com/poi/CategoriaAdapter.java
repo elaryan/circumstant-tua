@@ -1,4 +1,6 @@
-package com.artesanos;
+package com.poi;
+
+import com.poi.R;
 
 import android.app.Activity;
 import android.content.Context;

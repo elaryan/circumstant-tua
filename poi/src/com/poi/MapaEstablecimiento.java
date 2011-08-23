@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.poi.R;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;

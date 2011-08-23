@@ -1,4 +1,4 @@
-package com.artesanos;
+package com.poi;
 
 public class Categoria {
 

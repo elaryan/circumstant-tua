@@ -1,4 +1,6 @@
-package com.artesanos;
+package com.poi;
+
+import com.poi.R;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,6 +1,8 @@
-package com.artesanos;
+package com.poi;
 
 import java.util.List;
+
+import com.poi.R;
 
 import android.app.Activity;
 import android.content.Intent;
