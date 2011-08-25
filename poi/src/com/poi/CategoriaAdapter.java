@@ -47,10 +47,6 @@ import android.widget.TextView;
          else
              icon.setImageResource(R.drawable.generico);
          
-        // LinearLayout fila = (LinearLayout) row.findViewById(R.id.layoutFilaLista);
-        // fila.setBackgroundColor(Color.TRANSPARENT);
-         
-         
          return row;
         }
  }

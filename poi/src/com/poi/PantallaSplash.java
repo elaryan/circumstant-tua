@@ -30,7 +30,6 @@ public class PantallaSplash extends Activity{
 
 		public void run() {
 			startActivity(new Intent(getApplication(), listadoCategorias.class));
-			//startActivity(new Intent(getApplication(), InformacionEstablecimiento.class));
 			PantallaSplash.this.finish();
 		}
 		 

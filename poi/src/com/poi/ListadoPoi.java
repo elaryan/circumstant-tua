@@ -55,58 +55,31 @@ public class ListadoPoi extends ListActivity{
 	//latitud y longitud se inicializan con valores por defecto
 	String latitude = "43.364740";
 	String longitude ="-8.406450" ;
-	//de donde sacamos el valor del radio? configuracion? 
 	
-	//sacamos el valor del radio de SharedPreferences, por defecto sería 600000000000?
-	//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-	
-	//SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-	//Log.d("radiottttt", radio);	
-	//String radio = "600000000000";
 	JSONArray vocabulario;
 	
-	/*private Handler handlerObtenerEstablecimientos = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-        	try {
-            obtenerEstablecimientos((String) msg.obj);
-        	}
-        	catch (Exception e) 
-        	{
-        		Log.e("Error", getResources().getString(R.string.nodisponible));
-        	}
-       }
-    };*/
-
-	
-	/*private void obtenerEstablecimientos(String radio) {
-		// TODO Auto-generated method stub
-		this.radio = radio;
-		
-
-	}*/
 	
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        
+	       
+	    	//sacamos el valor del radio de SharedPreferences, por defecto sería 100000 (10km)
 	    	SharedPreferences settings = getApplicationContext().getSharedPreferences("RadioPrefs", Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
-	    	String radio =  settings.getString("radio", "600000000000");
-
+	    	String radio =  settings.getString("radio", "10000");
 	        
 	        listaEst = new ArrayList<Establecimiento>();
 	        
+	        //se recupera la categoría de la que se mostrarán los puntos
 	        Bundle bundle = getIntent().getExtras();
 	        categoriaSeleccionada = bundle.getString("idCatSeleccionada");
-	        Log.d("purupuru", categoriaSeleccionada);
-	        //categoriaSeleccionada = bundle.getString("position");
+	       
 	        //se obtiene la localizacion actual
 	        this.locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		    this.locationProvider = (LocationProvider) this.locationManager.getProvider(LocationManager.GPS_PROVIDER);
 		    Location ultimaLocalizacion = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		    
 		    //si no se puede obtener la localizacion se toman los valores por defecto
 	        if (ultimaLocalizacion != null){
-	        	 Log.d("gps", "not null");
+	        	 Log.d("gps", "OK");
 	        	 Log.d("GPS", ((Double)ultimaLocalizacion.getLatitude()).toString() + ";" +((Double)ultimaLocalizacion.getLongitude()).toString());
 		         latitude = ((Double)ultimaLocalizacion.getLatitude()).toString();
 		         longitude = ((Double)ultimaLocalizacion.getLongitude()).toString();
@@ -120,7 +93,6 @@ public class ListadoPoi extends ListActivity{
 	         Log.d("uri - porto", uri.getPort()+"");
 	         Log.d("latitud - longitud", latitude + " " + longitude);
 	         Log.d("radio", radio);	       
-//	         Log.d("cat", categoriaSeleccionada);
 	        
 	         RestClient client = new RestClient(urlJSON);
 	         client.AddParam("method", "\"geoposition.selectNodes\"");
@@ -163,32 +135,23 @@ public class ListadoPoi extends ListActivity{
 	             URLImagenes = new String[vocabulario.length()];
 	            
 	            for (int i = 0; i < vocabulario.length(); i++) {
-	            /*	Log.d("distancia", vocabulario.getJSONObject(i).getString("distance").toString());
-	            	Log.d("latitud", vocabulario.getJSONObject(i).getString("latitude").toString());
-	            	Log.d("longitud", vocabulario.getJSONObject(i).getString("longitude").toString());
-	            	Log.d("nombreEst",vocabulario.getJSONObject(i).getString("title").toString());*/
-	            	//Object location = vocabulario.getJSONObject(i).get("location");
 	            	JSONObject location = vocabulario.getJSONObject(i).getJSONObject("location");
-	            	//JSONObject locationEst = vocabulario.getJSONObject(i);
-	            	//Log.d("location", location.toString());
-	            	//Log.d("locat", locat.toString());
-	            	//String telf = location.getString("phone");   
+	            	 
 	            	String street = location.getString("street");
-	            	//String aditional = location.getString("additional");
 	            	String city = location.getString("city");
 	            	String distancia = vocabulario.getJSONObject(i).getString("distance");      
 	            	
 	            	Establecimiento est;
-	            	 est = new Establecimiento(
+	            	est = new Establecimiento(
 	            			 vocabulario.getJSONObject(i).getString("title").toString(), 
 	            			 street +" "+ city, 
 	            			 vocabulario.getJSONObject(i).getString("latitude").toString(), 
 	            			 vocabulario.getJSONObject(i).getString("longitude").toString());
 	            	 
-	            	 est.setDistancia(distancia);
-	            	 est.setTelefono(location.getString("phone"));
+	            	est.setDistancia(distancia);
+	            	est.setTelefono(location.getString("phone"));
  	            	est.setDescripcion(vocabulario.getJSONObject(i).getString("body").toString());
-	            	// web = "http://www.google.com";
+	            	
 	            	 Log.d("establecimiento", est.getNombre() + est.getDireccion() + est.getTelefono() + est.getEmail());
 	            	 
 	            	 //ya se obtienen ordenados por distancia, se anhaden directamente
@@ -240,9 +203,9 @@ public class ListadoPoi extends ListActivity{
 	            	URLImagenes[i] = "";
 	            	try{
 	            	for (int j=0; j<imagenes.length();j++){
-	            		//String urlImg = imagenes.getJSONArray(index)
+	            		
 	            		if (imagenes.getJSONObject(j) != null){	            		
-	            		//if ((imagenes.get(0))!= null){
+	            		
 		            		String urlImg = imagenes.getJSONObject(j).getString("filepath");
 		            		if (imagenes.getJSONObject(j).isNull("filepath"))
 		            			Log.d("filepath", "null");
@@ -260,42 +223,18 @@ public class ListadoPoi extends ListActivity{
 	            		e.printStackTrace();
 	            		 Toast toast = Toast.makeText(ListadoPoi.this, "Error al obtener la información", Toast.LENGTH_LONG);
 	    	  	         toast.show();
-	            	}
-	            	
-					//              	
-// 	            Log.d("telefono", telf);
-// 	            Log.d("calle", street);
-// 	            Log.d("direccion", aditional);
-// 	            Log.d("ciudad", city);           	  	            	
-	            	//String direccion = street + city;
-    	 
-	            	
-	            	 
-	            	 /*distancia = loc.getDistancia(latitude,  
-	            			 vocabulario.getJSONObject(i).getString("latitude").toString(), 
-	            			 longitude, 
-	            			 vocabulario.getJSONObject(i).getString("longitude").toString());*/
-	            	 
-	            	            	 
+	            	}      	            	 
 	             }
-	             //}
+	            
 	         } catch (JSONException e) {
 	             e.printStackTrace();
 	             Toast toast = Toast.makeText(ListadoPoi.this, "Error al obtener la información", Toast.LENGTH_LONG);
 	  	         toast.show();
-	             /*Intent intent = new Intent(ListadoCategoriasEst.this, listadoCategorias.class);
-	  	         startActivity(intent);*/
-	         }
-	        /* for(int i=0;i<COORDENADAS.length; i++)
-	        	 Log.d("arrayCoor", COORDENADAS[i]);
-	         	         
-	         for (int i=0;i<listaEst.size();i++){
-	        	 Log.d("listaEstEst", ((Integer)i).toString() + " " + listaEst.get(i).getNombre());
-	         }*/
+	             Intent intent = new Intent(ListadoPoi.this, listadoCategorias.class);
+	  	         startActivity(intent);
+	         }      
 	        	        	        
-	        this.setContentView(R.layout.listaest3);
-	        /*LinearLayout fondo = (LinearLayout) findViewById(R.id.layoutfilaest);
-	        fondo.setBackgroundColor(Color.WHITE);*/
+	        this.setContentView(R.layout.listaest3);	       
 	        Button botonMostrarMapa = (Button) findViewById(R.id.mostrarVistaMapa);
 	        botonMostrarMapa.setText(getResources().getString(R.string.botonmapa));
 	        botonMostrarMapa.setOnClickListener(new OnClickListener(){
@@ -304,7 +243,6 @@ public class ListadoPoi extends ListActivity{
 	        		Bundle bundle = new Bundle();
 	    	    	bundle.putStringArray("coordenadasEstablecimientos", COORDENADAS);
 	    	    	bundle.putString("categoriaSeleccionada", categoriaSeleccionada);
-	    	    	//bundle.putString("direccion", listaEst.get(position).getDireccion());
 	    	    	bundle.putSerializable("listaEstablecimientos", listaEst);
 	    	    	bundle.putStringArray("imagenes", URLImagenes);
 	    	    	bundle.putString("latitudActual", latitude);
@@ -313,58 +251,6 @@ public class ListadoPoi extends ListActivity{
 	    	        startActivityForResult(intent, 0);
 	        	}
 	        });
-     
-	        /*ImageButton flecha = (ImageButton) findViewById(R.id.flecha);
-	        flecha.setOnClickListener(new OnClickListener(){
-	        	public void onClick(View v){
-	        	Intent myIntent = new Intent(v.getContext(), InformacionEstablecimiento.class);
-		    	Bundle bundle = new Bundle();
-		    	int position = 1;
-		    	bundle.putStringArray("coordenadasEstablecimientos", COORDENADAS);
-		    	bundle.putString("nombre", listaEst.get(position).getNombre());
-		    	bundle.putString("telefono", listaEst.get(position).getTelefono());
-		    	bundle.putString("email", listaEst.get(position).getEmail());
-		    	bundle.putString("web", listaEst.get(position).getWeb());
-		    	bundle.putString("descripcion", listaEst.get(position).getDescripcion());
-		    	bundle.putString("URLimagenesEstablecimiento", URLImagenes[position]);
-		    	//bundle.putStringArray("imagenes", imagenes);
-		    	myIntent.putExtras(bundle);	    	
-		        startActivityForResult(myIntent, 0);
-	        }
-	        });*/
-	 
-//	        Arrays.sort(listaEst, new Comparator<Establecimiento>() {
-//	        	public int compare(Establecimiento object1, Establecimiento object2) {
-//	        		return object1.getDistancia().compareTo(object2.getDistancia());
-//	        	};
-//	        }
-         estAdapter = new EstablecimientoAdapter(ListadoPoi.this, listaEst);
-	       setListAdapter(estAdapter);
-	       Log.d("sizeFromLista",((Integer)listaEst.size()).toString());
-	       
-	       
-	        //((listaEstablecimientos) this.getApplication()).setState(listaEst);
-	       // listaAplicacion.setState(listaEst);
-	        
-	      /*  SharedPreferences settings = getSharedPreferences("RadioPrefs", Context.MODE_WORLD_READABLE);
-	        radio = settings.getString("radio", "50000");*/
-	      /*  final Dialog dialogoProgreso = ProgressDialog.show(this, "", getString(R.string.cargando), true);
-			
-			new Thread(new Runnable() {
-	            public void run() {
-	            	  try{	            		
-		                Message msg = new Message();
-		                if (radio.equals(null) || radio.equals(""))
-		    	        	radio = "50000";
-		    	        //obtenerEstablecimientos(radio);
-		                msg.obj = radio;
-		                handlerObtenerEstablecimientos.sendMessage(msg);	                
-		                dialogoProgreso.dismiss();
-	            	  }catch (Exception e) {
-	            		  Log.e("Error al obtener la info de est", e.getMessage());
-	               	  }
-	            }
-	        }).start();*/
 	 }
 
 	 protected void onListItemClick(ListView l, View v, int position, 
@@ -385,7 +271,6 @@ public class ListadoPoi extends ListActivity{
 	    	bundle.putString("latitudActual", latitude);
 	    	bundle.putString("longitudActual", longitude);
 	    	bundle.putInt("posicion", position);
-	    	//bundle.putStringArray("imagenes", imagenes);
 	    	myIntent.putExtras(bundle);	    	
 	        startActivityForResult(myIntent, 0);
 
@@ -411,40 +296,6 @@ public class ListadoPoi extends ListActivity{
 	    	myIntent.putExtras(bundle);
 			startActivityForResult(myIntent, 0);
 		}
-	 
-	 @Override
-	 public boolean onCreateOptionsMenu(Menu menu) {
-	     MenuInflater inflater = getMenuInflater();
-	     inflater.inflate(R.menu.menuradio, menu);
-	     return true;
-	 }
-	 
-	 /*public boolean onOptionsItemSelected(MenuItem item) {
-	     // Handle item selection
-		 
-	     switch (item.getItemId()) {
-	     case R.id.modificarradio:
-	    	 
-	    	 
-	    	 final CharSequence[] items = {"1000", "5000", "10000", "25000", "50000","100000","200000"};
-
-	    	 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    	 builder.setTitle(R.string.modificarradio);
-	    	 builder.setItems(items, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int item) {
-	    	    	 
-	    	    	 obtenerEstablecimientos(items[item].toString());
-	    	    	 
-	    	    }
-	    	 });
-	    	 AlertDialog alert = builder.create();
-	    	 alert.show();
-	         return true;
-	     
-	     default:
-	         return super.onOptionsItemSelected(item);
-	     }
-	 }*/
     	
 	 class sinconexionhandler implements Runnable{
 

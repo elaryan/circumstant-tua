@@ -45,7 +45,6 @@ public class InformacionEstablecimiento extends Activity{
 	 String web;
 	 ImageView imagen;
 	 ImageAdapter imgAdapter;
-	 //TODO: pasar ruta a variable de BD o configuración
 	 //String ruta = "http://10.0.2.2:80/drupal/";
 	 String ruta = "http://192.168.1.130:80/drupal/";
 	 String puntoActual;
@@ -75,7 +74,8 @@ public class InformacionEstablecimiento extends Activity{
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.info5);
 	        
-	   /* final Establecimiento estSeleccionado = new Establecimiento("nombre", "direccion", "distancia");
+	   /* dummy poi
+	    * final Establecimiento estSeleccionado = new Establecimiento("nombre", "direccion", "distancia");
 	   	 estSeleccionado.setWeb("http://www.google.es");
 	   	 estSeleccionado.setDescripcion("Establecimiento de artesanía");
 	   	 estSeleccionado.setDireccion("avda rio tamoga nº1, Cospeito");
@@ -89,8 +89,6 @@ public class InformacionEstablecimiento extends Activity{
 	        int posicion = bundle.getInt("posicion");
 	        listaEstablecimientos = (ArrayList<Establecimiento>) bundle.getSerializable("listaEstablecimientos");
 	        estSeleccionado = listaEstablecimientos.get(posicion);
-	       
-	        //web = bundle.getString("web");
 	        
 	        TextView nombre = (TextView) findViewById(R.id.nombre);
 	        LinearLayout filanombre = (LinearLayout) findViewById(R.id.layoutnombre);
@@ -103,39 +101,29 @@ public class InformacionEstablecimiento extends Activity{
 	        nombre.setTextColor(Color.DKGRAY);
 	        
 	        
-	        
-	       /* TextView descripcion = (TextView) findViewById(R.id.descripcion);
-	        //descripcion.setText(bundle.getString("descripcion"));
-	        descripcion.setText(estSeleccionado.getDescripcion());*/
-	        
-	        
 	        TextView direccion = (TextView) findViewById(R.id.direccion);
 	        LinearLayout filadireccion = (LinearLayout) findViewById(R.id.layoutdireccion);
 	        filadireccion.setBackgroundColor(Color.WHITE);
 	        direccion.setTextColor(Color.BLACK);
 	        if (estSeleccionado.getDireccion().equals(null) || estSeleccionado.getDireccion().equals(""))
 	        	filadireccion.setVisibility(View.GONE);
-	        	//direccion.setText(getResources().getString(R.string.nodisponible));
 	        else
-	        direccion.setText(estSeleccionado.getDireccion());
+	        	direccion.setText(estSeleccionado.getDireccion());
 	        
 	        TextView textoTelf = (TextView) findViewById(R.id.telefono);
 	        LinearLayout filallamar = (LinearLayout) findViewById(R.id.layouttelefono);
 	        filallamar.setBackgroundColor(Color.WHITE);
 	        Button botonLLamar = (Button) findViewById(R.id.llamar);
 	        
-	        //telf = bundle.getString("telefono");
 	        telf = estSeleccionado.getTelefono();
 	        if (telf.equals(null)|| telf.equals(""))
 	        {
 	        	filallamar.setVisibility(View.GONE);
 	        	botonLLamar.setVisibility(View.GONE);
-	        	//telf = getResources().getString(R.string.nodisponible);
 	        }
 	        else
 	        {
-		        textoTelf.setText(telf);
-		        
+		        textoTelf.setText(telf);		        
 		        textoTelf.setTextColor(Color.BLACK);
 		        filallamar.setOnClickListener(new OnClickListener(){
 		        	public void onClick(View v){
@@ -165,8 +153,6 @@ public class InformacionEstablecimiento extends Activity{
 	        {	
 	        	filaweb.setVisibility(View.GONE);
 	        	verWeb.setVisibility(View.GONE);
-	        	Log.d("pasa por aquí", "web nula: lalalalalalala");
-	        	//pagWeb.setText(getResources().getString(R.string.nodisponible));
 	        }
 	        else
 		    {
@@ -180,37 +166,26 @@ public class InformacionEstablecimiento extends Activity{
 		        });
 		        
 		        LinearLayout filaWeb = (LinearLayout) findViewById(R.id.layoutweb);
-		        filaWeb.setBackgroundColor(Color.WHITE);
-		       /* filaWeb.setOnClickListener(new OnClickListener(){
+		        filaWeb.setBackgroundColor(Color.WHITE);		       
+	        
+	        	verWeb.setText(getResources().getString(R.string.web));
+		        verWeb.setOnClickListener(new OnClickListener(){
 		        	public void onClick(View v){
-		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(dirWeb));
+		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
 		        		startActivity(intent);
 		        	}
-		        });*/
-		       
-	        
-		        	Log.d("pasa por aquí", "web no nula: nooor");
-		        	verWeb.setText(getResources().getString(R.string.web));
-			        verWeb.setOnClickListener(new OnClickListener(){
-			        	public void onClick(View v){
-			        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
-			        		startActivity(intent);
-			        	}
-			        });
-		        
-		        
+		        });
+		        		        
 	        }
 	        	        
 	        email = (TextView) findViewById(R.id.email);
 	        mail = estSeleccionado.getEmail();
-	       // String mail = "tienda@artegal.com";
 	        LinearLayout filaEmail = (LinearLayout) findViewById(R.id.layoutemail);
 	        Button botonEmail = (Button) findViewById(R.id.mandarEmail);
 	        if (mail == null || mail.compareTo("")==0 || mail.compareTo("No disponible") == 0 || mail.compareTo("null")==0)
 	        {	
 	        	filaEmail.setVisibility(View.GONE);
 	        	botonEmail.setVisibility(View.GONE);
-	        	//mail = getResources().getString(R.string.nodisponible);
 	        }
 	        else
 	        {
@@ -232,8 +207,6 @@ public class InformacionEstablecimiento extends Activity{
 	  			        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 	  		            emailIntent.setType("plain/text");
 	  		            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ email.getText().toString()});
-	  		            //emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject.getText());     
-	  		            //emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, emailtext.getText());	
 	  		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 	  			    }
 	  	        }); 
@@ -241,12 +214,10 @@ public class InformacionEstablecimiento extends Activity{
 	       
 	        TextView facebook = (TextView) findViewById(R.id.facebook);
 	        LinearLayout filaFacebook = (LinearLayout) findViewById(R.id.layoutfacebook);
-	        //String fb = "http://www.facebook.com";
 	        String fb = estSeleccionado.getFacebook();
 	        Log.d("fb", fb);
 	        if (fb.equals(null) || fb.compareTo("")==0 || fb.compareTo("No disponible")==0 || fb.compareTo("null")==0)
 	        	filaFacebook.setVisibility(View.GONE);
-	        	//facebook.setText(getResources().getString(R.string.nodisponible));
 	        else
 	        {
 		        facebook.setText(fb);
@@ -263,7 +234,6 @@ public class InformacionEstablecimiento extends Activity{
 	        TextView twitter = (TextView) findViewById(R.id.twitter);
 	        LinearLayout filaTwitter = (LinearLayout) findViewById(R.id.layouttwitter);
 	        filaTwitter.setBackgroundColor(Color.WHITE);
-	        //String tw = "http://www.twitter.com";
 	        String tw = estSeleccionado.getTwitter();
 	        if (tw.equals(null) || tw.compareTo("") == 0 || tw.compareTo("null")==0 || tw.compareTo("No disponible")==0){
 	        	filaTwitter.setVisibility(View.GONE);
@@ -287,7 +257,6 @@ public class InformacionEstablecimiento extends Activity{
 	        String desc = estSeleccionado.getDescripcion();
 	        if (desc.equals(null) || desc.compareTo("")==0 || desc.compareTo("null")==0 || desc.compareTo("No disponible")==0)
 	        	filaDescripcion.setVisibility(View.GONE);
-	        	//descripcion.setText(getApplication().getResources().getString(R.string.nodisponible));
 	        else{
 	        	descripcion.setText(desc);
 	        	descripcion.setTextColor(Color.BLACK);
@@ -297,8 +266,7 @@ public class InformacionEstablecimiento extends Activity{
 	        verRuta.setText(getResources().getString(R.string.ruta));
 	        puntoActual = bundle.getString("puntoActual");
 	        puntoDestino = bundle.getString("puntoDestino");
-	      /*  puntoActual = "1,2";
-	        puntoDestino = "3,4";*/
+	     
 	        if (!(puntoActual.equals(null)) && (!puntoDestino.equals(null)))
 	        {
 		        verRuta.setOnClickListener(new OnClickListener(){
@@ -325,7 +293,6 @@ public class InformacionEstablecimiento extends Activity{
 				  	intentContacto.putExtra(Insert.PHONE, Uri.decode(estSeleccionado.getTelefono()));        	
 				  	intentContacto.putExtra(Insert.EMAIL, estSeleccionado.getEmail());
 				  	intentContacto.putExtra(Insert.NOTES, notes);
-				  	//intentContacto.putExtra(Insert.POSTAL, estSeleccionado.getLocationPostalCode());
 				  	intentContacto.setType(Contacts.People.CONTENT_ITEM_TYPE);
 				  	startActivity(intentContacto);
 				}
@@ -337,7 +304,8 @@ public class InformacionEstablecimiento extends Activity{
 	        if (URLimagenes.compareTo("") == 0 || URLimagenes.compareTo("null")==0 || URLimagenes.compareTo("No disponible")==0)
 	        	g.setVisibility(View.GONE);
 	       // String URLimagenes = "http://imgur.com/3t8A3.jpg";
-	        //la ruta es local, incluimos la ruta absoluta
+	        
+	        //la ruta es local, la transformamos en la ruta absoluta
 	        final String[] imagenes = setFullPathImg(URLimagenes);
 	       
 	        imgAdapter = new ImageAdapter(this, imagenes);
@@ -376,12 +344,11 @@ public class InformacionEstablecimiento extends Activity{
 	               "twitter: "+estSeleccionado.getTwitter()+" "+
 	               "web: "+estSeleccionado.getWeb()+" ";
 
-			     Intent intentContacto = new Intent(Intent.ACTION_INSERT_OR_EDIT);				     
+			    Intent intentContacto = new Intent(Intent.ACTION_INSERT_OR_EDIT);				     
 			  	intentContacto.putExtra(Insert.NAME,estSeleccionado.getNombre());  
 			  	intentContacto.putExtra(Insert.PHONE, Uri.decode(estSeleccionado.getTelefono()));        	
 			  	intentContacto.putExtra(Insert.EMAIL, estSeleccionado.getEmail());
 			  	intentContacto.putExtra(Insert.NOTES, notes);
-			  	//intentContacto.putExtra(Insert.POSTAL, estSeleccionado.getLocationPostalCode());
 			  	intentContacto.setType(Contacts.People.CONTENT_ITEM_TYPE);
 			  	startActivity(intentContacto);
 			  	Log.d("opcionMenu", "contacto");
@@ -391,8 +358,6 @@ public class InformacionEstablecimiento extends Activity{
 		    	 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		            emailIntent.setType("plain/text");
 		            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mail});
-		            //emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject.getText());     
-		            //emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, emailtext.getText());	
 		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 		            Log.d("opcionMenu", "email");
 		            return true;
@@ -421,19 +386,6 @@ public class InformacionEstablecimiento extends Activity{
 	 public class ImageAdapter extends BaseAdapter {
 		    int mGalleryItemBackground;
 		    private Context mContext;
-
-//		    private Integer[] mImageIds = {
-//		            R.drawable.img1,
-//		            R.drawable.img10,
-//		            R.drawable.img2,
-//		            R.drawable.img3,
-//		            R.drawable.img4,
-//		            R.drawable.img5,
-//		            R.drawable.img6,
-//		            R.drawable.img7,
-//		            R.drawable.img8,
-//		            R.drawable.img9,         
-//		    };
 		    
 		    private String[] mImageIds = new String[]{};
 
@@ -458,17 +410,6 @@ public class InformacionEstablecimiento extends Activity{
 		    public long getItemId(int position) {
 		        return position;
 		    }
-
-		    /*public View getView(int position, View convertView, ViewGroup parent) {
-		        ImageView i = new ImageView(mContext);
-
-		        i.setImageResource(mImageIds[position]);
-		        i.setLayoutParams(new Gallery.LayoutParams(150, 100));
-		        i.setScaleType(ImageView.ScaleType.FIT_XY);
-		        i.setBackgroundResource(mGalleryItemBackground);
-
-		        return i;
-		    }*/
 		    
 		    public View getView(int position, View convertView, ViewGroup parent) {
 	            ImageView i = new ImageView(mContext);
@@ -476,23 +417,26 @@ public class InformacionEstablecimiento extends Activity{
 		        i.setScaleType(ImageView.ScaleType.FIT_XY);
 		        i.setBackgroundResource(mGalleryItemBackground);
 	            try {
-	                                //Abre la URL de la imagen y obtiene el InputStream para cargar datos
-	                                URL aURL = new URL(mImageIds[position]);
-	                                URLConnection conn = aURL.openConnection();
-	                                conn.connect();
-	                                InputStream is = conn.getInputStream();
-	                                BufferedInputStream bis = new BufferedInputStream(is);
-	                                //Transforma los datos a bitmap
-	                                Bitmap bm = BitmapFactory.decodeStream(bis);
-	                                bis.close();
-	                                is.close();
-	                                //Aplica el bitmap al imageView 
-	                                i.setImageBitmap(bm);
-	                        } catch (IOException e) {
-	                                i.setImageResource(R.drawable.error);
-	                                Log.e("DEBUGTAG", "Remote Image Exception", e);
-	                        }
-	                        return i;
+                    //Abre la URL de la imagen y obtiene el InputStream para cargar datos
+                    URL aURL = new URL(mImageIds[position]);
+                    URLConnection conn = aURL.openConnection();
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    BufferedInputStream bis = new BufferedInputStream(is);
+                    
+                    //Transforma los datos a bitmap
+                    Bitmap bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                    is.close();
+                    
+                    //Aplica el bitmap al imageView 
+                    i.setImageBitmap(bm);
+	            } 
+	            catch (IOException e) {
+                    i.setImageResource(R.drawable.error);
+                    Log.e("DEBUGTAG", "Remote Image Exception", e);
+	            }
+	            return i;
 		    }
 		    
 		    public Bitmap getBmp(int position) {

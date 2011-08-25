@@ -37,7 +37,6 @@ public class MapaEstablecimiento extends MapActivity{
 	Establecimiento establecimiento;
 	EstablecimientoItemizedOverlay itemizedOverlay;	
 	List<EstablecimientoOverlayItem> establecimientoOverlays;
-//	listaEstablecimientos listaAplicacion = (listaEstablecimientos)getApplicationContext();
 	ArrayList<Establecimiento> listaEst;
 	private LocationManager locationManager;
 	private LocationProvider locationProvider;
@@ -49,7 +48,6 @@ public class MapaEstablecimiento extends MapActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mapa2);
         
-        
         //obtenemos el array de coordenadas que pasamos desde la actividad anterior
         Bundle bundle = getIntent().getExtras();
         
@@ -60,7 +58,6 @@ public class MapaEstablecimiento extends MapActivity{
         categoriaSeleccionada = bundle.getString("categoriaSeleccionada");
         imagenes = new String[coordenadas.length];
         imagenes = bundle.getStringArray("imagenes");
-        //String [] coordenadas = new String[] {"37.49;-122.29","27.59;86.56","-25.23;131.05"};
         mapView = (MapView) findViewById(R.id.mapview);
         final MapController mc = mapView.getController();
         mapView.setBuiltInZoomControls(true);
@@ -74,37 +71,32 @@ public class MapaEstablecimiento extends MapActivity{
 	    Location ultimaLocalizacion = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
       String puntoActual;
         if (ultimaLocalizacion == null) {
+        	Log.d("ultimaLocalizacion", "null");
         	latitud = 43364740.0;
         	longitud = -5406450.0;
-        	 puntoActual = latitud + "," + longitud;
+        	puntoActual = latitud + "," + longitud;
         }
         else{
         	latitud = ultimaLocalizacion.getLatitude() * 1000000;  
             longitud = ultimaLocalizacion.getLongitude() * 1000000;
             Log.d("latitudACTUAL",latitud.toString());
             Log.d("longitudACTUAL",longitud.toString());
-             puntoActual = ((Double)ultimaLocalizacion.getLatitude()).toString() + "," + ((Double)ultimaLocalizacion.getLongitude()).toString();
+            puntoActual = ((Double)ultimaLocalizacion.getLatitude()).toString() + "," + ((Double)ultimaLocalizacion.getLongitude()).toString();
        }
        
         for (int i=0;i<this.listaEst.size();i++){
        	 Log.d("listaEstMapa", ((Integer)i).toString() + " " + listaEst.get(i).getNombre());
 
         }
-        //itemizedOverlay = new EstablecimientoItemizedOverlay(drawable, this);
        EstablecimientoItemizedOverlay itemizedOverlayGlobo = new EstablecimientoItemizedOverlay(drawable, this, listaEst, imagenes, puntoActual);
        GeoPoint ultimoPunto = new GeoPoint(latitud.intValue(), longitud.intValue());        
-       //OverlayItem overlayitemGlobo = new OverlayItem(ultimoPunto, "", "");
-       //itemizedOverlayGlobo.addOverlay(overlayitemGlobo);
-       //mapOverlays.add(itemizedOverlayGlobo);
-        
+      
        //mostramos los establecimientos
        
        for (int i=0;i<coordenadas.length; i++){
     	 String [] punto = new String[2];
          GeoPoint geoPunto = null;
       	 Log.d("coordenadas[i]", coordenadas[i]);
-    	 //itemizedOverlay = new EstablecimientoItemizedOverlay(drawable, this);
-	     //EstablecimientoItemizedOverlay establecimiento =  new EstablecimientoItemizedOverlay(drawable, this);
     	 punto = (coordenadas[i].toString().split(";"));
     	 Double latTem= ((Double)Double.parseDouble(punto[0])) * 1000000;
     	 int latitud = latTem.intValue();
@@ -116,10 +108,8 @@ public class MapaEstablecimiento extends MapActivity{
     	 OverlayItem overlayItemEst =  new OverlayItem(geoPunto, "", "");
     	 itemizedOverlayGlobo.addOverlay(overlayItemEst);
                
-            // Log.d("mapOverlaysSize", ((Integer)mapOverlays.size()).toString());
         }
-       mapOverlays.add(itemizedOverlayGlobo);
-       
+       mapOverlays.add(itemizedOverlayGlobo);      
        
        Button botonMostrarLista = (Button) findViewById(R.id.mostrarListado);
        botonMostrarLista.setText(getResources().getString(R.string.botonlista));
@@ -140,8 +130,7 @@ public class MapaEstablecimiento extends MapActivity{
           public void run() {
               mc.animateTo(myLocation.getMyLocation());
           }
-      
-      
+            
        });*/
     }
    

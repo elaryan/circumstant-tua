@@ -29,7 +29,6 @@ public class EstablecimientoAdapter extends BaseAdapter{
 	public EstablecimientoAdapter(Context ctx, List<Establecimiento> establecimientos){
 		this.contexto = ctx;
 		this.establecimientos = establecimientos;
-		//Log.d("establecimientoAdapter", establecimientos.get(1).getNombre());
 	}
 
 	public int getCount() {
@@ -69,9 +68,6 @@ public class EstablecimientoAdapter extends BaseAdapter{
         holder.direccion.setText(establecimiento.getDireccion());
         holder.distancia.setText(establecimiento.getDistancia() + " m");
 
-        /*holder.nombre.setTextColor(color.primary_text_dark);
-        holder.direccion.setTextColor(color.primary_text_light);
-        holder.distancia.setTextColor(color.primary_text_light);*/
         convertView.setBackgroundColor(Color.WHITE);
         
         return convertView;
@@ -81,12 +77,7 @@ public class EstablecimientoAdapter extends BaseAdapter{
         TextView nombre;
         TextView direccion;
         TextView distancia;
-       // ImageButton flecha; 
     }
-	/*public View getView(int posicion){
-		Establecimiento establecimiento = this.establecimientos.get(posicion);
-		return new EstablecimientoListView(this.contexto, establecimiento.getNombre(), establecimiento.getDireccion(),  establecimiento.getDistancia());		
-	}*/
     
     public View getView(int position) {
 		LayoutInflater mInflater = null;
@@ -101,14 +92,12 @@ public class EstablecimientoAdapter extends BaseAdapter{
         holder.nombre = (TextView) convertView.findViewById(R.id.nombreEstFila);
         holder.direccion = (TextView) convertView.findViewById(R.id.direccionEstFila);
         holder.distancia = (TextView) convertView.findViewById(R.id.distanciaEstFila);
-        //holder.flecha = (ImageButton) convertView.findViewById(R.id.botonFlecha);
         convertView.setTag(holder);
 
         // Bind the data with the holder.
         holder.nombre.setText(establecimiento.getNombre());
         holder.direccion.setText(establecimiento.getDireccion());
         holder.distancia.setText(establecimiento.getDistancia());
-        //holder.flecha.setBackgroundDrawable(this.contexto.getResources().getDrawable(R.drawable.flechaazul));
         
         convertView.setBackgroundColor(Color.WHITE);
         holder.nombre.setTextColor(color.black);

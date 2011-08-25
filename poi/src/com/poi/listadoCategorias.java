@@ -40,20 +40,9 @@ public class listadoCategorias extends Activity {
         final ListView listaCat = (ListView) findViewById(R.id.ListView01);
        
        // String url = "http://im.dygrafilms.es:8081/es/services/json";
-      
        // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
         
         String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";//para depurar en dispositivo, revisar IP
-
-        /* Uri uri = Uri.parse(url);
-         Log.d("uri - porto", uri.getPort()+"");
-        
-         RestClient client = new RestClient(url);
-         client.AddParam("method", "taxonomy.getTree");
-         client.AddParam("vid", "1");
-         client.AddParam("nodeLanguage", "es");
-        // client.AddParam("language", "es");
-         client.AddParam("parent", "0");*/
       
         Uri uri = Uri.parse(urlJSON);
         Log.d("uri - porto", uri.getPort()+"");
@@ -92,74 +81,58 @@ public class listadoCategorias extends Activity {
    	 + "\"Museos\", \"description\": \"Tendas significativas\", \"weight\": "
    	 + "\"2\", \"depth\": 0, \"parents\": [ \"0\" ] } ] }";*/
 	    
-	    if (response1 == null)
-        {
-       	 Toast toast = Toast.makeText(listadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
- 	         toast.show();
- 	         Handler handlerSinConexion = new Handler();
- 	         handlerSinConexion.postDelayed(new sinconexionhandler(), 100);	        
-	 }	
+    if (response1 == null)
+    {
+   	 Toast toast = Toast.makeText(listadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
+         toast.show();
+         Handler handlerSinConexion = new Handler();
+         handlerSinConexion.postDelayed(new sinconexionhandler(), 100);	        
+    }	
 	
-	     try {
-	         JSONObject jSonObject = new JSONObject(response1);
-	         JSONArray vocabulario = jSonObject.getJSONArray("#data");
-	         Log.d("vocabulario",vocabulario.toString());
-	         vocabulario.getString(1);
-	         Log.d("vocabulario-cantidad","valor:"+vocabulario.length());
-	         CATEGORIAS = new String[vocabulario.length()];
-	         ID = new String[vocabulario.length()];
-	        
-	         for (int i = 0; i < vocabulario.length(); i++) {
-	        	 String name = vocabulario.getJSONObject(i).getString("name").toString();      	 
-	        	 Log.d("name",name);
-	        	 CATEGORIAS[i] =  name;
-	        	 
-	        	 String description = vocabulario.getJSONObject(i).getString("description").toString();	       	                
-	        	 Log.d("description",description);
-	        	 
-	        	 String idCat = vocabulario.getJSONObject(i).getString("tid").toString();
-	        	 ID[i] = idCat;
-	        	 Log.d("idCat", ID[i]);
-	         }
+     try {
+         JSONObject jSonObject = new JSONObject(response1);
+         JSONArray vocabulario = jSonObject.getJSONArray("#data");
+         Log.d("vocabulario",vocabulario.toString());
+         vocabulario.getString(1);
+         Log.d("vocabulario-cantidad","valor:"+vocabulario.length());
+         CATEGORIAS = new String[vocabulario.length()];
+         ID = new String[vocabulario.length()];
+        
+         for (int i = 0; i < vocabulario.length(); i++) {
+        	 String name = vocabulario.getJSONObject(i).getString("name").toString();      	 
+        	 Log.d("name",name);
+        	 CATEGORIAS[i] =  name;
+        	 
+        	 String description = vocabulario.getJSONObject(i).getString("description").toString();	       	                
+        	 Log.d("description",description);
+        	 
+        	 String idCat = vocabulario.getJSONObject(i).getString("tid").toString();
+        	 ID[i] = idCat;
+        	 Log.d("idCat", ID[i]);
+         }
          } catch (JSONException e) {
              e.printStackTrace();
          }
          
-       // listaCat.setAdapter(new ArrayAdapter<String>(this, R.layout.fila, CATEGORIAS));
-        //View v = getLayoutInflater().inflate(R.layout.footer2, null);
-       // listaCat.addFooterView(v);
+        //vista para mostrar la barra superior
         View v = getLayoutInflater().inflate(R.layout.header, null);
         listaCat.addHeaderView(v);
+        
+        //se aplica el layout para cada fila
         listaCat.setAdapter(new CategoriaAdapter(this, R.layout.fila, CATEGORIAS));
         listaCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long id) {
-				Intent myIntent = new Intent(listadoCategorias.this, ListadoPoi.class);
-				//Intent myIntent = new Intent(listadoCategorias.this, InformacionEstablecimiento.class);
-				
+				Intent myIntent = new Intent(listadoCategorias.this, ListadoPoi.class);				
 		        Bundle bundle = new Bundle();
 		        bundle.putString("categoria", listaCat.getItemAtPosition(position).toString());
 		        bundle.putString("idCatSeleccionada", ID[position-1]);
 		        bundle.putString("position",((Integer)position).toString() );
 		        myIntent.putExtras(bundle);
-		        //Log.d("Categoria", listaCat.getItemAtPosition(position).toString());
-		        //Log.d("idCatSel", ID[position]);
-		       // Log.d("idCatSeleccionada", ID[position]);
-		       
-		        //Log.d("pos",((Integer)position).toString() );
 				startActivityForResult(myIntent, 0);
 			}       	
 		});    
         listaCat.setDivider(null);
-        
-        /*ImageButton configuracion = (ImageButton) findViewById(R.id.botonImagenConfigurar);
-        //configuracion.setText("Configuración");
-        configuracion.setOnClickListener(new OnClickListener(){
-        	public void onClick(View v){
-        		Intent intent = new Intent(listadoCategorias.this, Configuracion.class);
-        		startActivity(intent);
-        	}
-        });*/
         
     }
     class sinconexionhandler implements Runnable{
@@ -170,12 +143,6 @@ public class listadoCategorias extends Activity {
 		}
          }
 
-   
-//    protected void onListItemClick(ListView l, View v, int position, 
-//    		long id){
-//    	Intent myIntent = new Intent(v.getContext(), listadoEstablecimientos.class);
-//        startActivityForResult(myIntent, 0);	
-//    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,7 +153,7 @@ public class listadoCategorias extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	Intent intent = new Intent(listadoCategorias.this, Configuracion.class);
 		startActivity(intent);
-		Log.d("opcionMenu", "llamar");
+		Log.d("opcionMenu", "configuración");
 		return true;
     }
     

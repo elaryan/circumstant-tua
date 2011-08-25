@@ -36,14 +36,13 @@ public class Configuracion extends Activity{
 	        guardarPrefRadio.setOnClickListener(new OnClickListener(){
 	        	public void onClick(View v){
 	        		SharedPreferences settings = getSharedPreferences("RadioPrefs", Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
-	  	        	//SharedPreferences settings = getApplicationContext().getSharedPreferences("RadioPrefs", MODE_PRIVATE);
-	    	        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	        		SharedPreferences.Editor editor = settings.edit();	        		
 	  	        	editor.putString("radio", radio.getText().toString());
 	  	        	editor.commit();
-	  	        	Log.d("radioPref", settings.getString("radio","lalalal"));
+	  	        	
 	  	        	Toast toast = Toast.makeText(Configuracion.this, "Preferencias guardadas", Toast.LENGTH_SHORT);
 	  	        	toast.show();
+	  	        	
 	  	        	radio.setText("");
 	        	}
 	        });

@@ -37,9 +37,7 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 		this.listaEstablecimientos = listaEst;
 		this.imagenes = imagenes;
 		this.puntoActual = puntoActual;
-		//this.populate();
-		//this.establecimientos = null;
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public void addOverlay(OverlayItem overlay) {
@@ -51,19 +49,16 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 	@Override
 	protected OverlayItem createItem(int i) {
 	  return mOverlays.get(i);
-		//return this.establecimientos.get(i);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return mOverlays.size();
 	}
 	
 	 @Override
 	 protected boolean onTap(int index) {		 
-		 /*Intent myIntent = new Intent(this.ctx, InformacionEstablecimiento.class);
-	     this.ctx.startActivity(myIntent);*/
+		
 		 Establecimiento est;
 		 Log.d("sizeFromMapa", ((Integer)this.listaEstablecimientos.size()).toString());	 		
 		 Log.d("index", ((Integer)index).toString());
@@ -78,14 +73,11 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 		 View v = inflater.inflate(R.layout.detalles, null);
 		 TextView nombre = (TextView) v.findViewById(R.id.estSelectNombre);
 		 nombre.setText(est.getNombre());
-		 /*TextView direccion = (TextView) v.findViewById(R.id.estSelectdir);
-		 direccion.setText(est.getDireccion());*/
-		 
+		
 		 new AlertDialog.Builder(this.ctx).setView(v).setPositiveButton("Más informacion", 
 				 new DialogInterface.OnClickListener() {
 					
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
 						Intent intent = new Intent( ctx, InformacionEstablecimiento.class);
 						Bundle bundle = new Bundle();
 						bundle.putString("web", listaEstablecimientos.get(position).getWeb());
@@ -99,7 +91,6 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 						intent.putExtras(bundle);
 						ctx.startActivity(intent);
 						
-						
 					}
 				})
 				.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -110,9 +101,7 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 					}
 				})
 				.show();
-		 
-		/* Toast toast = Toast.makeText(this.ctx, "InformacionEstablecimiento", Toast.LENGTH_SHORT);
-       	 toast.show();*/
+	
 		 
 	 return true;
 	 }
