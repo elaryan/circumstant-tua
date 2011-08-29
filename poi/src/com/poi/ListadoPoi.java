@@ -86,8 +86,8 @@ public class ListadoPoi extends ListActivity{
 	        }	        
 	        
 	        //String urlJSON = "http://im.dygrafilms.es:8081/es/services/json";
-	        // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
-	        String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";
+	         String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
+	        //String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";
 	         
 	         Uri uri = Uri.parse(urlJSON);
 	         Log.d("uri - porto", uri.getPort()+"");

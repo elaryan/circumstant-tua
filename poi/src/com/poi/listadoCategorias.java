@@ -40,9 +40,9 @@ public class listadoCategorias extends Activity {
         final ListView listaCat = (ListView) findViewById(R.id.ListView01);
        
        // String url = "http://im.dygrafilms.es:8081/es/services/json";
-       // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
+        String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
         
-        String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";//para depurar en dispositivo, revisar IP
+      //  String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";//para depurar en dispositivo, revisar IP
       
         Uri uri = Uri.parse(urlJSON);
         Log.d("uri - porto", uri.getPort()+"");
