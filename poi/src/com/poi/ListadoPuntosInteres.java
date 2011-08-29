@@ -41,12 +41,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ListadoPoi extends ListActivity{
-	private EstablecimientoAdapter estAdapter;
-	protected static ArrayList<Establecimiento> listaEst = null;
+public class ListadoPuntosInteres extends ListActivity{
+	private PuntoInteresAdapter poiAdapter;
+	protected static ArrayList<PuntoInteres> listaPoi = null;
 	private LocationManager locationManager;
 	private LocationProvider locationProvider;
-	private Establecimiento[] arrayEst = new Establecimiento[]{};
+	private PuntoInteres[] arrayPoi = new PuntoInteres[]{};
 	String[] COORDENADAS = new String[] {"1", "2", "3"};
 	String categoriaSeleccionada = null;
 	String web = null;
@@ -66,7 +66,7 @@ public class ListadoPoi extends ListActivity{
 	    	SharedPreferences settings = getApplicationContext().getSharedPreferences("RadioPrefs", Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
 	    	String radio =  settings.getString("radio", "10000");
 	        
-	        listaEst = new ArrayList<Establecimiento>();
+	        listaPoi = new ArrayList<PuntoInteres>();
 	        
 	        //se recupera la categoría de la que se mostrarán los puntos
 	        Bundle bundle = getIntent().getExtras();
@@ -106,7 +106,7 @@ public class ListadoPoi extends ListActivity{
 	         try {
 	             client.Execute(RequestMethod.POST);
 	         } catch (Exception e) {
-	        	 Toast toast = Toast.makeText(ListadoPoi.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
+	        	 Toast toast = Toast.makeText(ListadoPuntosInteres.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
 	  	         toast.show();
 	  	         Handler handlerSinConexion = new Handler();
 	  	         handlerSinConexion.postDelayed(new sinconexionhandler(), 100);
@@ -116,7 +116,7 @@ public class ListadoPoi extends ListActivity{
 	        String response1 = client.getResponse();
 	        if (response1 == null)
 	         {
-	        	 Toast toast = Toast.makeText(ListadoPoi.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
+	        	 Toast toast = Toast.makeText(ListadoPuntosInteres.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
 	  	         toast.show();
 	  	         Handler handlerSinConexion = new Handler();
 	  	         handlerSinConexion.postDelayed(new sinconexionhandler(), 100);	        
@@ -131,7 +131,7 @@ public class ListadoPoi extends ListActivity{
 	             Log.d("vocabulario",vocabulario.toString());
 	             Log.d("vocabulario-cantidad","valor:"+vocabulario.length());
 	             COORDENADAS = new String[vocabulario.length()];
-	             arrayEst = new Establecimiento[vocabulario.length()];
+	             arrayPoi = new PuntoInteres[vocabulario.length()];
 	             URLImagenes = new String[vocabulario.length()];
 	            
 	            for (int i = 0; i < vocabulario.length(); i++) {
@@ -141,21 +141,21 @@ public class ListadoPoi extends ListActivity{
 	            	String city = location.getString("city");
 	            	String distancia = vocabulario.getJSONObject(i).getString("distance");      
 	            	
-	            	Establecimiento est;
-	            	est = new Establecimiento(
+	            	PuntoInteres poi;
+	            	poi = new PuntoInteres(
 	            			 vocabulario.getJSONObject(i).getString("title").toString(), 
 	            			 street +" "+ city, 
 	            			 vocabulario.getJSONObject(i).getString("latitude").toString(), 
 	            			 vocabulario.getJSONObject(i).getString("longitude").toString());
 	            	 
-	            	est.setDistancia(distancia);
-	            	est.setTelefono(location.getString("phone"));
- 	            	est.setDescripcion(vocabulario.getJSONObject(i).getString("body").toString());
+	            	poi.setDistancia(distancia);
+	            	poi.setTelefono(location.getString("phone"));
+ 	            	poi.setDescripcion(vocabulario.getJSONObject(i).getString("body").toString());
 	            	
-	            	 Log.d("establecimiento", est.getNombre() + est.getDireccion() + est.getTelefono() + est.getEmail());
+	            	 Log.d("poi", poi.getNombre() + poi.getDireccion() + poi.getTelefono() + poi.getEmail());
 	            	 
 	            	 //ya se obtienen ordenados por distancia, se anhaden directamente
-	            	 listaEst.add(est);    	            	 
+	            	 listaPoi.add(poi);    	            	 
 	            	 COORDENADAS[i] =  vocabulario.getJSONObject(i).getString("latitude").toString() +
 	            	  					";" + 
 	            			 			vocabulario.getJSONObject(i).getString("longitude").toString();
@@ -167,16 +167,16 @@ public class ListadoPoi extends ListActivity{
 							Log.d("json web",arrayWeb.toString());
 							if (arrayWeb.length()>0)
 							{
-								est.setWeb(arrayWeb.getJSONObject(0).getString("value"));
-								Log.d("web", est.getWeb());
+								poi.setWeb(arrayWeb.getJSONObject(0).getString("value"));
+								Log.d("web", poi.getWeb());
 							}
 		                   JSONArray arrayMail = vocabulario.getJSONObject(i).getJSONArray("field_email");
 							
 							Log.d("json mail",arrayMail.toString());
 							if (arrayMail.length()>0)
 							{
-								est.setEmail((arrayMail.getJSONObject(0).getString("value")));
-								Log.d("mail", est.getEmail());
+								poi.setEmail((arrayMail.getJSONObject(0).getString("value")));
+								Log.d("mail", poi.getEmail());
 							}
 		                      
 							JSONArray arrayFacebook = vocabulario.getJSONObject(i).getJSONArray("field_facebook");
@@ -184,16 +184,16 @@ public class ListadoPoi extends ListActivity{
 							Log.d("json fb",arrayFacebook.toString());
 							if (arrayFacebook.length()>0)
 							{
-								est.setFacebook(arrayFacebook.getJSONObject(0).getString("value"));
-								Log.d("fb", est.getFacebook());
+								poi.setFacebook(arrayFacebook.getJSONObject(0).getString("value"));
+								Log.d("fb", poi.getFacebook());
 							}
 		                    JSONArray arrayTwitter = vocabulario.getJSONObject(i).getJSONArray("field_twitter");
 							
 							Log.d("json tw",arrayTwitter.toString());
 							if (arrayTwitter.length()>0)
 							{
-								est.setTwitter(arrayTwitter.getJSONObject(0).getString("value"));
-								Log.d("twitter",est.getTwitter());
+								poi.setTwitter(arrayTwitter.getJSONObject(0).getString("value"));
+								Log.d("twitter",poi.getTwitter());
 							}
 						}catch(JSONException e){
 							e.printStackTrace();
@@ -217,33 +217,33 @@ public class ListadoPoi extends ListActivity{
 		            			Log.d("imgURL", imagenes.getJSONObject(j).getString("filepath"));
 		            		}
 	            		}
-	            		est.setImagenes(URLImagenes[i]);	
+	            		poi.setImagenes(URLImagenes[i]);	
 	            	}
 	            	}catch(JSONException e){
 	            		e.printStackTrace();
-	            		 Toast toast = Toast.makeText(ListadoPoi.this, "Error al obtener la información", Toast.LENGTH_LONG);
+	            		 Toast toast = Toast.makeText(ListadoPuntosInteres.this, "Error al obtener la información", Toast.LENGTH_LONG);
 	    	  	         toast.show();
 	            	}      	            	 
 	             }
 	            
 	         } catch (JSONException e) {
 	             e.printStackTrace();
-	             Toast toast = Toast.makeText(ListadoPoi.this, "Error al obtener la información", Toast.LENGTH_LONG);
+	             Toast toast = Toast.makeText(ListadoPuntosInteres.this, "Error al obtener la información", Toast.LENGTH_LONG);
 	  	         toast.show();
-	             Intent intent = new Intent(ListadoPoi.this, listadoCategorias.class);
+	             Intent intent = new Intent(ListadoPuntosInteres.this, ListadoCategorias.class);
 	  	         startActivity(intent);
 	         }      
 	        	        	        
-	        this.setContentView(R.layout.listaest3);	       
+	        this.setContentView(R.layout.listapoi);	       
 	        Button botonMostrarMapa = (Button) findViewById(R.id.mostrarVistaMapa);
 	        botonMostrarMapa.setText(getResources().getString(R.string.botonmapa));
 	        botonMostrarMapa.setOnClickListener(new OnClickListener(){
 	        	public void onClick(View v){
-	        		Intent intent = new Intent(ListadoPoi.this, MapaEstablecimiento.class);
+	        		Intent intent = new Intent(ListadoPuntosInteres.this, MapaPuntosInteres.class);
 	        		Bundle bundle = new Bundle();
 	    	    	bundle.putStringArray("coordenadasEstablecimientos", COORDENADAS);
 	    	    	bundle.putString("categoriaSeleccionada", categoriaSeleccionada);
-	    	    	bundle.putSerializable("listaEstablecimientos", listaEst);
+	    	    	bundle.putSerializable("listaPuntosInteres", listaPoi);
 	    	    	bundle.putStringArray("imagenes", URLImagenes);
 	    	    	bundle.putString("latitudActual", latitude);
 	    	    	bundle.putString("longitudActual", longitude);
@@ -255,18 +255,18 @@ public class ListadoPoi extends ListActivity{
 
 	 protected void onListItemClick(ListView l, View v, int position, 
 	    		long id){
-	    	Intent myIntent = new Intent(v.getContext(), InformacionEstablecimiento.class);
+	    	Intent myIntent = new Intent(v.getContext(), InformacionPuntoInteres.class);
 	    	Bundle bundle = new Bundle();
 	    	bundle.putStringArray("coordenadasEstablecimientos", COORDENADAS);
-	    	bundle.putString("nombre", listaEst.get(position).getNombre());
-	    	bundle.putString("telefono", listaEst.get(position).getTelefono());
-	    	bundle.putString("email", listaEst.get(position).getEmail());
-	    	bundle.putString("web", listaEst.get(position).getWeb());
-	    	bundle.putString("direccion", listaEst.get(position).getDireccion());
-	    	bundle.putString("descripcion", listaEst.get(position).getDescripcion());
+	    	bundle.putString("nombre", listaPoi.get(position).getNombre());
+	    	bundle.putString("telefono", listaPoi.get(position).getTelefono());
+	    	bundle.putString("email", listaPoi.get(position).getEmail());
+	    	bundle.putString("web", listaPoi.get(position).getWeb());
+	    	bundle.putString("direccion", listaPoi.get(position).getDireccion());
+	    	bundle.putString("descripcion", listaPoi.get(position).getDescripcion());
 	    	bundle.putString("URLimagenesEstablecimiento", URLImagenes[position]);
-	    	bundle.putSerializable("listaEstablecimientos", listaEst);
-	    	bundle.putString("puntoDestino", listaEst.get(position).getLatitud()+ "," + listaEst.get(position).getLongitud());
+	    	bundle.putSerializable("listaPuntosInteres", listaPoi);
+	    	bundle.putString("puntoDestino", listaPoi.get(position).getLatitud()+ "," + listaPoi.get(position).getLongitud());
 	    	bundle.putString("puntoActual", latitude+","+longitude);
 	    	bundle.putString("latitudActual", latitude);
 	    	bundle.putString("longitudActual", longitude);
@@ -277,18 +277,18 @@ public class ListadoPoi extends ListActivity{
 	 }
 	    
 	 public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-			Intent myIntent = new Intent(ListadoPoi.this, MapaEstablecimiento.class);  
+			Intent myIntent = new Intent(ListadoPuntosInteres.this, MapaPuntosInteres.class);  
 			Bundle bundle = new Bundle();
 			bundle.putStringArray("coordenadasEstablecimientos", COORDENADAS);
-	    	bundle.putString("nombre", listaEst.get(position).getNombre());
-	    	bundle.putString("telefono", listaEst.get(position).getTelefono());
-	    	bundle.putString("email", listaEst.get(position).getEmail());
-	    	bundle.putString("web", listaEst.get(position).getWeb());
-	    	bundle.putString("descripcion", listaEst.get(position).getDescripcion());
-	    	bundle.putString("direccion", listaEst.get(position).getDireccion());
-	    	bundle.putSerializable("listaEstablecimientos", listaEst);
+	    	bundle.putString("nombre", listaPoi.get(position).getNombre());
+	    	bundle.putString("telefono", listaPoi.get(position).getTelefono());
+	    	bundle.putString("email", listaPoi.get(position).getEmail());
+	    	bundle.putString("web", listaPoi.get(position).getWeb());
+	    	bundle.putString("descripcion", listaPoi.get(position).getDescripcion());
+	    	bundle.putString("direccion", listaPoi.get(position).getDireccion());
+	    	bundle.putSerializable("listaPuntosInteres", listaPoi);
 	    	bundle.putString("URLimagenesEstablecimiento", URLImagenes[position]);
-	    	bundle.putString("puntoDestino", listaEst.get(position).getLatitud()+ "," + listaEst.get(position).getLongitud());
+	    	bundle.putString("puntoDestino", listaPoi.get(position).getLatitud()+ "," + listaPoi.get(position).getLongitud());
 	    	bundle.putString("puntoActual", latitude+","+longitude);
 	    	bundle.putString("latitudActual", latitude);
 	    	bundle.putString("longitudActual", longitude);
@@ -300,8 +300,8 @@ public class ListadoPoi extends ListActivity{
 	 class sinconexionhandler implements Runnable{
 
 			public void run() {
-				startActivity(new Intent(getApplication(), listadoCategorias.class));
-				ListadoPoi.this.finish();
+				startActivity(new Intent(getApplication(), ListadoCategorias.class));
+				ListadoPuntosInteres.this.finish();
 			}
 	         }
 	

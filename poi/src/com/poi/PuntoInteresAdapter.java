@@ -20,23 +20,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EstablecimientoAdapter extends BaseAdapter{
+public class PuntoInteresAdapter extends BaseAdapter{
 	
 	private final Context contexto;
-	private final List<Establecimiento> establecimientos;
+	private final List<PuntoInteres> puntosInteres;
 	
 	
-	public EstablecimientoAdapter(Context ctx, List<Establecimiento> establecimientos){
+	public PuntoInteresAdapter(Context ctx, List<PuntoInteres> establecimientos){
 		this.contexto = ctx;
-		this.establecimientos = establecimientos;
+		this.puntosInteres = establecimientos;
 	}
 
 	public int getCount() {
-		return this.establecimientos.size();
+		return this.puntosInteres.size();
 	}
 
 	public Object getItem(int posicion) {		
-		return this.establecimientos.get(posicion);
+		return this.puntosInteres.get(posicion);
 	}
 
 	public long getItemId(int posicion) {
@@ -44,8 +44,8 @@ public class EstablecimientoAdapter extends BaseAdapter{
 	}
 
 	/*public View getView(int posicion, View vista, ViewGroup parent) {
-		Establecimiento establecimiento = this.establecimientos.get(posicion);
-		return new EstablecimientoListView(this.contexto, establecimiento.getNombre(), establecimiento.getDireccion(),  establecimiento.getDistancia());
+		PuntoInteres poi = this.establecimientos.get(posicion);
+		return new PuntoInteresListView(this.contexto, poi.getNombre(), poi.getDireccion(),  poi.getDistancia());
 	}*/
 	
 	
@@ -54,7 +54,7 @@ public class EstablecimientoAdapter extends BaseAdapter{
         ViewHolder holder;
         mInflater = LayoutInflater.from(this.contexto);
         convertView = mInflater.inflate(R.layout.filamaquetada, null);
-        Establecimiento establecimiento = this.establecimientos.get(position);
+        PuntoInteres poi = this.puntosInteres.get(position);
 
         // Creates a ViewHolder and store references to the children views
         holder = new ViewHolder();
@@ -64,9 +64,9 @@ public class EstablecimientoAdapter extends BaseAdapter{
         convertView.setTag(holder);
 
         // Bind the data with the holder.
-        holder.nombre.setText(establecimiento.getNombre());  
-        holder.direccion.setText(establecimiento.getDireccion());
-        holder.distancia.setText(establecimiento.getDistancia() + " m");
+        holder.nombre.setText(poi.getNombre());  
+        holder.direccion.setText(poi.getDireccion());
+        holder.distancia.setText(poi.getDistancia() + " m");
 
         convertView.setBackgroundColor(Color.WHITE);
         
@@ -85,7 +85,7 @@ public class EstablecimientoAdapter extends BaseAdapter{
         ViewHolder holder;
         mInflater = LayoutInflater.from(this.contexto);
         convertView = mInflater.inflate(R.layout.filamaquetada, null);
-        Establecimiento establecimiento = this.establecimientos.get(position);
+        PuntoInteres poi = this.puntosInteres.get(position);
 
         // Creates a ViewHolder and store references to the children views
         holder = new ViewHolder();
@@ -95,9 +95,9 @@ public class EstablecimientoAdapter extends BaseAdapter{
         convertView.setTag(holder);
 
         // Bind the data with the holder.
-        holder.nombre.setText(establecimiento.getNombre());
-        holder.direccion.setText(establecimiento.getDireccion());
-        holder.distancia.setText(establecimiento.getDistancia());
+        holder.nombre.setText(poi.getNombre());
+        holder.direccion.setText(poi.getDireccion());
+        holder.distancia.setText(poi.getDistancia());
         
         convertView.setBackgroundColor(Color.WHITE);
         holder.nombre.setTextColor(color.black);

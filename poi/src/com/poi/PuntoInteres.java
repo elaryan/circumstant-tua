@@ -2,7 +2,7 @@ package com.poi;
 
 import java.io.Serializable;
 
-public class Establecimiento implements Serializable{
+public class PuntoInteres implements Serializable{
 	
 	/**
 	 * 
@@ -21,14 +21,14 @@ public class Establecimiento implements Serializable{
 	String facebook;
 	String twitter;
 	
-	public Establecimiento(String nombre, String direccion, String distancia){		
+	public PuntoInteres(String nombre, String direccion, String distancia){		
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.distancia = distancia;
 		
 	}
 
-	public Establecimiento(String nombre, String direccion, String latitud,
+	public PuntoInteres(String nombre, String direccion, String latitud,
 			String longitud) {
 		this.nombre = nombre;
 		this.direccion = direccion;

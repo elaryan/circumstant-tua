@@ -26,7 +26,7 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 
-public class MapaEstablecimiento extends MapActivity{
+public class MapaPuntosInteres extends MapActivity{
 	LinearLayout linearLayout;
 	MapView mapView;
 	List<Overlay> mapOverlays;
@@ -34,10 +34,10 @@ public class MapaEstablecimiento extends MapActivity{
 	Drawable globo;
 	Double latitud;
 	Double longitud;
-	Establecimiento establecimiento;
-	EstablecimientoItemizedOverlay itemizedOverlay;	
-	List<EstablecimientoOverlayItem> establecimientoOverlays;
-	ArrayList<Establecimiento> listaEst;
+	PuntoInteres poi;
+	PuntoInteresItemizedOverlay itemizedOverlay;	
+	List<PuntoInteresOverlayItem> establecimientoOverlays;
+	ArrayList<PuntoInteres> listaPoi;
 	private LocationManager locationManager;
 	private LocationProvider locationProvider;
 	private String categoriaSeleccionada = null;
@@ -46,13 +46,13 @@ public class MapaEstablecimiento extends MapActivity{
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mapa2);
+        setContentView(R.layout.mapa);
         
         //obtenemos el array de coordenadas que pasamos desde la actividad anterior
         Bundle bundle = getIntent().getExtras();
         
         //obtenemos la lista de establecimientos
-       listaEst = (ArrayList<Establecimiento>)getIntent().getExtras().get("listaEstablecimientos");
+       listaPoi = (ArrayList<PuntoInteres>)getIntent().getExtras().get("listaPuntosInteres");
         
         String [] coordenadas = bundle.getStringArray("coordenadasEstablecimientos");
         categoriaSeleccionada = bundle.getString("categoriaSeleccionada");
@@ -84,12 +84,11 @@ public class MapaEstablecimiento extends MapActivity{
             puntoActual = ((Double)ultimaLocalizacion.getLatitude()).toString() + "," + ((Double)ultimaLocalizacion.getLongitude()).toString();
        }
        
-        for (int i=0;i<this.listaEst.size();i++){
-       	 Log.d("listaEstMapa", ((Integer)i).toString() + " " + listaEst.get(i).getNombre());
+        for (int i=0;i<this.listaPoi.size();i++){
+       	 Log.d("listaPoiMapa", ((Integer)i).toString() + " " + listaPoi.get(i).getNombre());
 
         }
-       EstablecimientoItemizedOverlay itemizedOverlayGlobo = new EstablecimientoItemizedOverlay(drawable, this, listaEst, imagenes, puntoActual);
-       GeoPoint ultimoPunto = new GeoPoint(latitud.intValue(), longitud.intValue());        
+       PuntoInteresItemizedOverlay itemizedOverlayGlobo = new PuntoInteresItemizedOverlay(drawable, this, listaPoi, imagenes, puntoActual);
       
        //mostramos los establecimientos
        
@@ -115,7 +114,7 @@ public class MapaEstablecimiento extends MapActivity{
        botonMostrarLista.setText(getResources().getString(R.string.botonlista));
        botonMostrarLista.setOnClickListener(new OnClickListener(){
        	public void onClick(View v){
-       		Intent intent = new Intent(MapaEstablecimiento.this, ListadoPoi.class);
+       		Intent intent = new Intent(MapaPuntosInteres.this, ListadoPuntosInteres.class);
        		Bundle bundle = new Bundle();
        		bundle.putString("idCatSeleccionada", categoriaSeleccionada);
    	    	intent.putExtras(bundle);	    	

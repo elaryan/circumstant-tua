@@ -10,14 +10,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class EstablecimientoListView extends LinearLayout{
+public class PuntoInteresListView extends LinearLayout{
 	
 	private TextView nombre;
 	private TextView direccion;
 	private TextView distancia;
 	private ImageButton flecha;
 		
-	public EstablecimientoListView(Context ctx, String nombre, String direccion, String distancia){
+	public PuntoInteresListView(Context ctx, String nombre, String direccion, String distancia){
 		super(ctx);
 		
 		setOrientation(LinearLayout.VERTICAL);

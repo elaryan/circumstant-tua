@@ -29,7 +29,7 @@ public class PantallaSplash extends Activity{
 	 class splashhandler implements Runnable{
 
 		public void run() {
-			startActivity(new Intent(getApplication(), listadoCategorias.class));
+			startActivity(new Intent(getApplication(), ListadoCategorias.class));
 			PantallaSplash.this.finish();
 		}
 		 

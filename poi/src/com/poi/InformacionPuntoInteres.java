@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import com.poi.R;
 
-import android.R.color;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,15 +31,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class InformacionEstablecimiento extends Activity{
+public class InformacionPuntoInteres extends Activity{
 	 String telf;
 	 String web;
 	 ImageView imagen;
@@ -50,8 +46,8 @@ public class InformacionEstablecimiento extends Activity{
 	 String puntoActual;
 	 String puntoDestino;
 	 String mail;
-	 ArrayList<Establecimiento> listaEstablecimientos;
-	 Establecimiento estSeleccionado;
+	 ArrayList<PuntoInteres> listaPuntosInteres;
+	 PuntoInteres poiSeleccionado;
 	 TextView email;
 	 TextView pagWeb;
 	 String dirWeb;
@@ -72,32 +68,32 @@ public class InformacionEstablecimiento extends Activity{
 	 }
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.info5);
+	        setContentView(R.layout.informacion);
 	        
 	   /* dummy poi
-	    * final Establecimiento estSeleccionado = new Establecimiento("nombre", "direccion", "distancia");
-	   	 estSeleccionado.setWeb("http://www.google.es");
-	   	 estSeleccionado.setDescripcion("Establecimiento de artesanía");
-	   	 estSeleccionado.setDireccion("avda rio tamoga nº1, Cospeito");
-	   	 estSeleccionado.setTwitter("http://www.twitter.com");
-	   	 estSeleccionado.setFacebook("http://www.facebook.com");
-	   	 estSeleccionado.setTelefono("555000000");
-	   	 estSeleccionado.setEmail("tienda2@arte.com");*/
+	    * final PuntoInteres poiSeleccionado = new PuntoInteres("nombre", "direccion", "distancia");
+	   	 poiSeleccionado.setWeb("http://www.google.es");
+	   	 poiSeleccionado.setDescripcion("PuntoInteres de artesanía");
+	   	 poiSeleccionado.setDireccion("avda rio tamoga nº1, Cospeito");
+	   	 poiSeleccionado.setTwitter("http://www.twitter.com");
+	   	 poiSeleccionado.setFacebook("http://www.facebook.com");
+	   	 poiSeleccionado.setTelefono("555000000");
+	   	 poiSeleccionado.setEmail("tienda2@arte.com");*/
 	   	 
         
 	        Bundle bundle = getIntent().getExtras();
 	        int posicion = bundle.getInt("posicion");
-	        listaEstablecimientos = (ArrayList<Establecimiento>) bundle.getSerializable("listaEstablecimientos");
-	        estSeleccionado = listaEstablecimientos.get(posicion);
+	        listaPuntosInteres = (ArrayList<PuntoInteres>) bundle.getSerializable("listaPuntosInteres");
+	        poiSeleccionado = listaPuntosInteres.get(posicion);
 	        
 	        TextView nombre = (TextView) findViewById(R.id.nombre);
 	        LinearLayout filanombre = (LinearLayout) findViewById(R.id.layoutnombre);
 	        filanombre.setBackgroundColor(Color.WHITE);
-	        String nombreEst = estSeleccionado.getNombre();
-	        if (nombreEst.equals(null) || nombreEst.equals(""))
+	        String nombrePoi = poiSeleccionado.getNombre();
+	        if (nombrePoi.equals(null) || nombrePoi.equals(""))
 	        	nombre.setText(getResources().getString(R.string.nodisponible));
 	        else
-	        	nombre.setText(nombreEst);
+	        	nombre.setText(nombrePoi);
 	        nombre.setTextColor(Color.DKGRAY);
 	        
 	        
@@ -105,17 +101,17 @@ public class InformacionEstablecimiento extends Activity{
 	        LinearLayout filadireccion = (LinearLayout) findViewById(R.id.layoutdireccion);
 	        filadireccion.setBackgroundColor(Color.WHITE);
 	        direccion.setTextColor(Color.BLACK);
-	        if (estSeleccionado.getDireccion().equals(null) || estSeleccionado.getDireccion().equals(""))
+	        if (poiSeleccionado.getDireccion().equals(null) || poiSeleccionado.getDireccion().equals(""))
 	        	filadireccion.setVisibility(View.GONE);
 	        else
-	        	direccion.setText(estSeleccionado.getDireccion());
+	        	direccion.setText(poiSeleccionado.getDireccion());
 	        
 	        TextView textoTelf = (TextView) findViewById(R.id.telefono);
 	        LinearLayout filallamar = (LinearLayout) findViewById(R.id.layouttelefono);
 	        filallamar.setBackgroundColor(Color.WHITE);
 	        Button botonLLamar = (Button) findViewById(R.id.llamar);
 	        
-	        telf = estSeleccionado.getTelefono();
+	        telf = poiSeleccionado.getTelefono();
 	        if (telf.equals(null)|| telf.equals(""))
 	        {
 	        	filallamar.setVisibility(View.GONE);
@@ -145,7 +141,7 @@ public class InformacionEstablecimiento extends Activity{
 	        
 	        pagWeb = (TextView) findViewById(R.id.web);
 	        LinearLayout filaweb = (LinearLayout) findViewById(R.id.layoutweb);
-	        dirWeb = estSeleccionado.getWeb();
+	        dirWeb = poiSeleccionado.getWeb();
 	        
 	        Button verWeb = (Button) findViewById(R.id.verWeb);
 	        
@@ -179,7 +175,7 @@ public class InformacionEstablecimiento extends Activity{
 	        }
 	        	        
 	        email = (TextView) findViewById(R.id.email);
-	        mail = estSeleccionado.getEmail();
+	        mail = poiSeleccionado.getEmail();
 	        LinearLayout filaEmail = (LinearLayout) findViewById(R.id.layoutemail);
 	        Button botonEmail = (Button) findViewById(R.id.mandarEmail);
 	        if (mail == null || mail.compareTo("")==0 || mail.compareTo("No disponible") == 0 || mail.compareTo("null")==0)
@@ -197,7 +193,7 @@ public class InformacionEstablecimiento extends Activity{
 			        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		            emailIntent.setType("plain/text");
 		            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ email.getText().toString()});
-		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
+		            InformacionPuntoInteres.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 			    }
 	        });  
 	        	
@@ -207,14 +203,14 @@ public class InformacionEstablecimiento extends Activity{
 	  			        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 	  		            emailIntent.setType("plain/text");
 	  		            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ email.getText().toString()});
-	  		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
+	  		            InformacionPuntoInteres.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 	  			    }
 	  	        }); 
 	        }
 	       
 	        TextView facebook = (TextView) findViewById(R.id.facebook);
 	        LinearLayout filaFacebook = (LinearLayout) findViewById(R.id.layoutfacebook);
-	        String fb = estSeleccionado.getFacebook();
+	        String fb = poiSeleccionado.getFacebook();
 	        Log.d("fb", fb);
 	        if (fb.equals(null) || fb.compareTo("")==0 || fb.compareTo("No disponible")==0 || fb.compareTo("null")==0)
 	        	filaFacebook.setVisibility(View.GONE);
@@ -225,7 +221,7 @@ public class InformacionEstablecimiento extends Activity{
 		        facebook.setTextColor(Color.BLACK);
 		        filaFacebook.setOnClickListener(new OnClickListener(){
 		        	public void onClick(View v){
-		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(estSeleccionado.getFacebook()));
+		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(poiSeleccionado.getFacebook()));
 		        		startActivity(intent);
 		        	}
 		        });
@@ -234,18 +230,18 @@ public class InformacionEstablecimiento extends Activity{
 	        TextView twitter = (TextView) findViewById(R.id.twitter);
 	        LinearLayout filaTwitter = (LinearLayout) findViewById(R.id.layouttwitter);
 	        filaTwitter.setBackgroundColor(Color.WHITE);
-	        String tw = estSeleccionado.getTwitter();
+	        String tw = poiSeleccionado.getTwitter();
 	        if (tw.equals(null) || tw.compareTo("") == 0 || tw.compareTo("null")==0 || tw.compareTo("No disponible")==0){
 	        	filaTwitter.setVisibility(View.GONE);
 	        	twitter.setText(getResources().getString(R.string.nodisponible));
 	        }
 	        else
 	        {
-		        twitter.setText(estSeleccionado.getTwitter());		        
+		        twitter.setText(poiSeleccionado.getTwitter());		        
 		        twitter.setTextColor(Color.BLACK);
 		        filaTwitter.setOnClickListener(new OnClickListener(){
 		        	public void onClick(View v){
-		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(estSeleccionado.getTwitter()));
+		        		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(poiSeleccionado.getTwitter()));
 		        		startActivity(intent);
 		        	}
 		        });
@@ -254,7 +250,7 @@ public class InformacionEstablecimiento extends Activity{
 	        TextView descripcion = (TextView) findViewById(R.id.textinfo);
 	        LinearLayout filaDescripcion = (LinearLayout) findViewById(R.id.layoutinfo);
 	        filaDescripcion.setBackgroundColor(Color.WHITE);
-	        String desc = estSeleccionado.getDescripcion();
+	        String desc = poiSeleccionado.getDescripcion();
 	        if (desc.equals(null) || desc.compareTo("")==0 || desc.compareTo("null")==0 || desc.compareTo("No disponible")==0)
 	        	filaDescripcion.setVisibility(View.GONE);
 	        else{
@@ -284,14 +280,14 @@ public class InformacionEstablecimiento extends Activity{
 	        almacenarContacto.setOnClickListener(new OnClickListener(){
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					String notes = "facebook: "+estSeleccionado.getFacebook()+" "+
-		               "twitter: "+estSeleccionado.getTwitter()+" "+
-		               "web: "+estSeleccionado.getWeb()+" ";
+					String notes = "facebook: "+poiSeleccionado.getFacebook()+" "+
+		               "twitter: "+poiSeleccionado.getTwitter()+" "+
+		               "web: "+poiSeleccionado.getWeb()+" ";
 	
 				     Intent intentContacto = new Intent(Intent.ACTION_INSERT_OR_EDIT);				     
-				  	intentContacto.putExtra(Insert.NAME,estSeleccionado.getNombre());  
-				  	intentContacto.putExtra(Insert.PHONE, Uri.decode(estSeleccionado.getTelefono()));        	
-				  	intentContacto.putExtra(Insert.EMAIL, estSeleccionado.getEmail());
+				  	intentContacto.putExtra(Insert.NAME,poiSeleccionado.getNombre());  
+				  	intentContacto.putExtra(Insert.PHONE, Uri.decode(poiSeleccionado.getTelefono()));        	
+				  	intentContacto.putExtra(Insert.EMAIL, poiSeleccionado.getEmail());
 				  	intentContacto.putExtra(Insert.NOTES, notes);
 				  	intentContacto.setType(Contacts.People.CONTENT_ITEM_TYPE);
 				  	startActivity(intentContacto);
@@ -313,7 +309,7 @@ public class InformacionEstablecimiento extends Activity{
 	        imagen = (ImageView) findViewById(R.id.imagen);
 	        g.setOnItemClickListener(new OnItemClickListener() {
 	            public void onItemClick(AdapterView parent, View v, int position, long id) {             
-	            	Intent intent = new Intent(InformacionEstablecimiento.this, ImagenEstablecimiento.class);
+	            	Intent intent = new Intent(InformacionPuntoInteres.this, ImagenPuntoInteres.class);
 	            	Bundle bundle = new Bundle();
 	            	bundle.putString("urlImgSeleccionada", imagenes[position]);
 	            	intent.putExtras(bundle);
@@ -325,7 +321,7 @@ public class InformacionEstablecimiento extends Activity{
 	 
 	 public boolean onCreateOptionsMenu(Menu menu) {
 	     MenuInflater inflater = getMenuInflater();
-	     inflater.inflate(R.menu.menuestablecimiento, menu);
+	     inflater.inflate(R.menu.menupoi, menu);
 	     return true;
 	 }
 	 
@@ -340,14 +336,14 @@ public class InformacionEstablecimiento extends Activity{
 	        		Log.d("opcionMenu", "llamar");
 	        		return true;
 		     case R.id.menucontacto:
-		    	 String notes = "facebook: "+estSeleccionado.getFacebook()+" "+
-	               "twitter: "+estSeleccionado.getTwitter()+" "+
-	               "web: "+estSeleccionado.getWeb()+" ";
+		    	 String notes = "facebook: "+poiSeleccionado.getFacebook()+" "+
+	               "twitter: "+poiSeleccionado.getTwitter()+" "+
+	               "web: "+poiSeleccionado.getWeb()+" ";
 
 			    Intent intentContacto = new Intent(Intent.ACTION_INSERT_OR_EDIT);				     
-			  	intentContacto.putExtra(Insert.NAME,estSeleccionado.getNombre());  
-			  	intentContacto.putExtra(Insert.PHONE, Uri.decode(estSeleccionado.getTelefono()));        	
-			  	intentContacto.putExtra(Insert.EMAIL, estSeleccionado.getEmail());
+			  	intentContacto.putExtra(Insert.NAME,poiSeleccionado.getNombre());  
+			  	intentContacto.putExtra(Insert.PHONE, Uri.decode(poiSeleccionado.getTelefono()));        	
+			  	intentContacto.putExtra(Insert.EMAIL, poiSeleccionado.getEmail());
 			  	intentContacto.putExtra(Insert.NOTES, notes);
 			  	intentContacto.setType(Contacts.People.CONTENT_ITEM_TYPE);
 			  	startActivity(intentContacto);
@@ -358,7 +354,7 @@ public class InformacionEstablecimiento extends Activity{
 		    	 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		            emailIntent.setType("plain/text");
 		            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mail});
-		            InformacionEstablecimiento.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
+		            InformacionPuntoInteres.this.startActivity(Intent.createChooser(emailIntent, "Enviar correo"));
 		            Log.d("opcionMenu", "email");
 		            return true;
 		            
@@ -378,7 +374,7 @@ public class InformacionEstablecimiento extends Activity{
 	     
 	    	default:
 	         return super.onOptionsItemSelected(item);
-	    		//return true;
+    		
 	    }
 	   
 	    }

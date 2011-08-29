@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class listadoCategorias extends Activity {
+public class ListadoCategorias extends Activity {
     
 	//array en el que se almacenan los id de categoria
 	String [] ID = new String[]{};
@@ -57,7 +57,7 @@ public class listadoCategorias extends Activity {
              client.Execute(RequestMethod.POST);
          } catch (Exception e) {
              e.printStackTrace();
-             Toast toast = Toast.makeText(listadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
+             Toast toast = Toast.makeText(ListadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
  	         toast.show();
          }
 
@@ -83,7 +83,7 @@ public class listadoCategorias extends Activity {
 	    
     if (response1 == null)
     {
-   	 Toast toast = Toast.makeText(listadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
+   	 Toast toast = Toast.makeText(ListadoCategorias.this, "Conexión no disponible. No puede descargarse la información", Toast.LENGTH_LONG);
          toast.show();
          Handler handlerSinConexion = new Handler();
          handlerSinConexion.postDelayed(new sinconexionhandler(), 100);	        
@@ -123,7 +123,7 @@ public class listadoCategorias extends Activity {
         listaCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long id) {
-				Intent myIntent = new Intent(listadoCategorias.this, ListadoPoi.class);				
+				Intent myIntent = new Intent(ListadoCategorias.this, ListadoPuntosInteres.class);				
 		        Bundle bundle = new Bundle();
 		        bundle.putString("categoria", listaCat.getItemAtPosition(position).toString());
 		        bundle.putString("idCatSeleccionada", ID[position-1]);
@@ -138,8 +138,8 @@ public class listadoCategorias extends Activity {
     class sinconexionhandler implements Runnable{
 
 		public void run() {
-			startActivity(new Intent(getApplication(), listadoCategorias.class));
-			listadoCategorias.this.finish();
+			startActivity(new Intent(getApplication(), ListadoCategorias.class));
+			ListadoCategorias.this.finish();
 		}
          }
 
@@ -151,7 +151,7 @@ public class listadoCategorias extends Activity {
     	  return true;
     	}
     public boolean onOptionsItemSelected(MenuItem item) {
-    	Intent intent = new Intent(listadoCategorias.this, Configuracion.class);
+    	Intent intent = new Intent(ListadoCategorias.this, Configuracion.class);
 		startActivity(intent);
 		Log.d("opcionMenu", "configuración");
 		return true;

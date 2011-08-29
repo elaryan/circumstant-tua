@@ -22,19 +22,19 @@ import com.google.android.maps.ItemizedOverlay;
 //import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
+public class PuntoInteresItemizedOverlay extends ItemizedOverlay {
 	
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	Context ctx;
-	ArrayList<Establecimiento> listaEstablecimientos = new ArrayList<Establecimiento>();
+	ArrayList<PuntoInteres> listaPuntosInteres = new ArrayList<PuntoInteres>();
 	String[] imagenes;
 	String puntoActual;
 	
 	
-	public EstablecimientoItemizedOverlay(Drawable defaultMarker, Context context, ArrayList<Establecimiento> listaEst, String[] imagenes, String puntoActual) {
+	public PuntoInteresItemizedOverlay(Drawable defaultMarker, Context context, ArrayList<PuntoInteres> listaPoi, String[] imagenes, String puntoActual) {
 		super(boundCenterBottom(defaultMarker));
 		this.ctx = context;
-		this.listaEstablecimientos = listaEst;
+		this.listaPuntosInteres = listaPoi;
 		this.imagenes = imagenes;
 		this.puntoActual = puntoActual;
 		
@@ -59,34 +59,34 @@ public class EstablecimientoItemizedOverlay extends ItemizedOverlay {
 	 @Override
 	 protected boolean onTap(int index) {		 
 		
-		 Establecimiento est;
-		 Log.d("sizeFromMapa", ((Integer)this.listaEstablecimientos.size()).toString());	 		
+		 PuntoInteres poi;
+		 Log.d("sizeFromMapa", ((Integer)this.listaPuntosInteres.size()).toString());	 		
 		 Log.d("index", ((Integer)index).toString());
-		 if (index==listaEstablecimientos.size()){
+		 if (index==listaPuntosInteres.size()){
 			 index = 0;
 			 Log.d("index", "index cambiado");
 		 }
-		 est = this.listaEstablecimientos.get(index);
+		 poi = this.listaPuntosInteres.get(index);
 		
 		 final int position = index;
 		 LayoutInflater inflater = LayoutInflater.from(this.ctx);
 		 View v = inflater.inflate(R.layout.detalles, null);
 		 TextView nombre = (TextView) v.findViewById(R.id.estSelectNombre);
-		 nombre.setText(est.getNombre());
+		 nombre.setText(poi.getNombre());
 		
 		 new AlertDialog.Builder(this.ctx).setView(v).setPositiveButton("Más informacion", 
 				 new DialogInterface.OnClickListener() {
 					
 					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent( ctx, InformacionEstablecimiento.class);
+						Intent intent = new Intent( ctx, InformacionPuntoInteres.class);
 						Bundle bundle = new Bundle();
-						bundle.putString("web", listaEstablecimientos.get(position).getWeb());
-						bundle.putString("telefono", listaEstablecimientos.get(position).getTelefono());
+						bundle.putString("web", listaPuntosInteres.get(position).getWeb());
+						bundle.putString("telefono", listaPuntosInteres.get(position).getTelefono());
 						bundle.putString("URLimagenesEstablecimiento", imagenes[position]);
-						bundle.putString("nombre", listaEstablecimientos.get(position).telefono);						
-						bundle.putString("puntoDestino", listaEstablecimientos.get(position).getLatitud()+ "," + listaEstablecimientos.get(position).getLongitud());
+						bundle.putString("nombre", listaPuntosInteres.get(position).telefono);						
+						bundle.putString("puntoDestino", listaPuntosInteres.get(position).getLatitud()+ "," + listaPuntosInteres.get(position).getLongitud());
 						bundle.putString("puntoActual", puntoActual);
-						bundle.putSerializable("listaEstablecimientos", listaEstablecimientos);
+						bundle.putSerializable("listaPuntosInteres", listaPuntosInteres);
 						bundle.putInt("posicion", position);
 						intent.putExtras(bundle);
 						ctx.startActivity(intent);
