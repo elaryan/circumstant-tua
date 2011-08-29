@@ -12,20 +12,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 </activity>
-<activity android:name="listadoCategorias"
+<activity android:name="ListadoCategorias"
 android:theme="@android:style/Theme.NoTitleBar">
 </activity>
- <activity android:name="listadoEstablecimientos"
+ <activity android:name="ListadoPuntosInteres"
  android:theme="@android:style/Theme.NoTitleBar">
  </activity>
 <uses-library android:name="com.google.android.maps" />
-<activity android:name="MapaEstablecimiento"
+<activity android:name="MapaPuntosInteres"
 android:theme="@android:style/Theme.NoTitleBar">
 </activity>
-<activity android:name="InformacionEstablecimiento"
-android:theme="@android:style/Theme.NoTitleBar">
-</activity>
-<activity android:name="ListadoPoi"
+<activity android:name="InformacionPuntoInteres"
 android:theme="@android:style/Theme.NoTitleBar">
 </activity>
 <activity android:name="Configuracion"
