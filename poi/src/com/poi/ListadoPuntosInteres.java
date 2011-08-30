@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import com.poi.R;
 import com.poi.PantallaSplash.splashhandler;
 
@@ -86,8 +87,10 @@ public class ListadoPuntosInteres extends ListActivity{
 	        }	        
 	        
 	        //String urlJSON = "http://im.dygrafilms.es:8081/es/services/json";
-	         String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
+	        // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
 	        //String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";
+	        String urlJSON = "http://192.168.1.102:80/drupal/?q=services/json";
+
 	         
 	         Uri uri = Uri.parse(urlJSON);
 	         Log.d("uri - porto", uri.getPort()+"");
@@ -251,6 +254,10 @@ public class ListadoPuntosInteres extends ListActivity{
 	    	        startActivityForResult(intent, 0);
 	        	}
 	        });
+	        
+	        poiAdapter = new PuntoInteresAdapter(ListadoPuntosInteres.this, listaPoi);
+		       setListAdapter(poiAdapter);
+		       Log.d("sizeFromLista",((Integer)listaPoi.size()).toString());
 	 }
 
 	 protected void onListItemClick(ListView l, View v, int position, 

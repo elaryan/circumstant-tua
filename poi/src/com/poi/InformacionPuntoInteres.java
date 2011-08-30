@@ -41,8 +41,10 @@ public class InformacionPuntoInteres extends Activity{
 	 String web;
 	 ImageView imagen;
 	 ImageAdapter imgAdapter;
-	 String ruta = "http://10.0.2.2:80/drupal/";
+	 //String ruta = "http://10.0.2.2:80/drupal/";
 	 //String ruta = "http://192.168.1.130:80/drupal/";
+     String ruta = "http://192.168.1.102:80/drupal/";
+
 	 String puntoActual;
 	 String puntoDestino;
 	 String mail;
