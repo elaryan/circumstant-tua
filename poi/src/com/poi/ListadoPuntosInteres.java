@@ -3,11 +3,11 @@ package com.poi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import com.poi.R;
 import com.poi.PantallaSplash.splashhandler;
@@ -56,6 +56,7 @@ public class ListadoPuntosInteres extends ListActivity{
 	//latitud y longitud se inicializan con valores por defecto
 	String latitude = "43.364740";
 	String longitude ="-8.406450" ;
+	String ip = "";
 	
 	JSONArray vocabulario;
 	
@@ -72,6 +73,7 @@ public class ListadoPuntosInteres extends ListActivity{
 	        //se recupera la categoría de la que se mostrarán los puntos
 	        Bundle bundle = getIntent().getExtras();
 	        categoriaSeleccionada = bundle.getString("idCatSeleccionada");
+	        ip = bundle.getString("IPDrupal");
 	       
 	        //se obtiene la localizacion actual
 	        this.locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -86,11 +88,13 @@ public class ListadoPuntosInteres extends ListActivity{
 		         longitude = ((Double)ultimaLocalizacion.getLongitude()).toString();
 	        }	        
 	        
+	        //obtenemos el lenguaje del dispositivo
+	        String idioma = Locale.getDefault().getLanguage();
+	        Log.d("idioma", idioma);
+	        
 	        //String urlJSON = "http://im.dygrafilms.es:8081/es/services/json";
-	        // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
-	        //String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";
-	        String urlJSON = "http://192.168.1.102:80/drupal/?q=services/json";
-
+	         //String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
+	        String urlJSON = "http://" + ip + ":80/drupal/?q=services/json";
 	         
 	         Uri uri = Uri.parse(urlJSON);
 	         Log.d("uri - porto", uri.getPort()+"");
@@ -104,7 +108,8 @@ public class ListadoPuntosInteres extends ListActivity{
 	         client.AddParam("latitude", latitude);
 	         client.AddParam("longitude", longitude);
 	         client.AddParam("radio", radio);
-	         client.AddParam("nodeLanguage", "\"es\"");
+	         //client.AddParam("nodeLanguage", "\"es\"");
+	         client.AddParam("nodeLanguage", "\"" + idioma + "\"" );
 	         
 	         try {
 	             client.Execute(RequestMethod.POST);
@@ -127,10 +132,23 @@ public class ListadoPuntosInteres extends ListActivity{
 		 
 		 
 	         Log.d("ResponseEst",""+ response1);
+	         
 	      	               		
 	          try {
-	             JSONObject jSonObject = new JSONObject(response1);
-	             vocabulario = jSonObject.getJSONArray("#data");    	           
+	        	  JSONObject jSonObject = new JSONObject(response1);
+	         
+	             if (jSonObject.isNull("#data")){
+	            	 Log.d("n8kl", "sin resultados");
+	             	 Toast toast = Toast.makeText(ListadoPuntosInteres.this, "No hay puntos de interés cercanos en esta categoría", Toast.LENGTH_LONG);
+	    	  	     toast.show();
+	    	  	     Intent intent = new Intent(ListadoPuntosInteres.this, ListadoCategorias.class);
+		  	         startActivity(intent);
+	             }
+	                
+	             
+	             else
+	             {
+	             vocabulario = jSonObject.getJSONArray("#data");
 	             Log.d("vocabulario",vocabulario.toString());
 	             Log.d("vocabulario-cantidad","valor:"+vocabulario.length());
 	             COORDENADAS = new String[vocabulario.length()];
@@ -228,7 +246,7 @@ public class ListadoPuntosInteres extends ListActivity{
 	    	  	         toast.show();
 	            	}      	            	 
 	             }
-	            
+	             }
 	         } catch (JSONException e) {
 	             e.printStackTrace();
 	             Toast toast = Toast.makeText(ListadoPuntosInteres.this, "Error al obtener la información", Toast.LENGTH_LONG);
@@ -250,14 +268,16 @@ public class ListadoPuntosInteres extends ListActivity{
 	    	    	bundle.putStringArray("imagenes", URLImagenes);
 	    	    	bundle.putString("latitudActual", latitude);
 	    	    	bundle.putString("longitudActual", longitude);
+	    	    	bundle.putString("IPDrupal", ip);
 	    	    	intent.putExtras(bundle);	    	
 	    	        startActivityForResult(intent, 0);
 	        	}
 	        });
 	        
 	        poiAdapter = new PuntoInteresAdapter(ListadoPuntosInteres.this, listaPoi);
-		       setListAdapter(poiAdapter);
-		       Log.d("sizeFromLista",((Integer)listaPoi.size()).toString());
+	        setListAdapter(poiAdapter);
+	        Log.d("sizeFromLista",((Integer)listaPoi.size()).toString());
+	        
 	 }
 
 	 protected void onListItemClick(ListView l, View v, int position, 
@@ -278,6 +298,7 @@ public class ListadoPuntosInteres extends ListActivity{
 	    	bundle.putString("latitudActual", latitude);
 	    	bundle.putString("longitudActual", longitude);
 	    	bundle.putInt("posicion", position);
+	    	bundle.putString("IPDrupal", ip);
 	    	myIntent.putExtras(bundle);	    	
 	        startActivityForResult(myIntent, 0);
 
@@ -300,6 +321,7 @@ public class ListadoPuntosInteres extends ListActivity{
 	    	bundle.putString("latitudActual", latitude);
 	    	bundle.putString("longitudActual", longitude);
 	    	bundle.putInt("posicion", position);
+	    	bundle.putString("IPDrupal", ip);
 	    	myIntent.putExtras(bundle);
 			startActivityForResult(myIntent, 0);
 		}

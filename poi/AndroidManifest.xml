@@ -28,7 +28,10 @@ android:theme="@android:style/Theme.NoTitleBar">
 <activity android:name="Configuracion"
 android:theme="@android:style/Theme.NoTitleBar">
 </activity>
-<activity android:name="ImagenEstablecimiento"
+<activity android:name="ImagenPuntoInteres"
+android:theme="@android:style/Theme.NoTitleBar">
+</activity>
+<activity android:name="SelectorOrigenDatos"
 android:theme="@android:style/Theme.NoTitleBar">
 </activity>
 </application>

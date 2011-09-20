@@ -42,9 +42,7 @@ public class InformacionPuntoInteres extends Activity{
 	 ImageView imagen;
 	 ImageAdapter imgAdapter;
 	 //String ruta = "http://10.0.2.2:80/drupal/";
-	 //String ruta = "http://192.168.1.130:80/drupal/";
-     String ruta = "http://192.168.1.102:80/drupal/";
-
+	// String ruta = "http://192.168.1.132:80/drupal/";
 	 String puntoActual;
 	 String puntoDestino;
 	 String mail;
@@ -54,8 +52,9 @@ public class InformacionPuntoInteres extends Activity{
 	 TextView pagWeb;
 	 String dirWeb;
 	 
-	 private String[] setFullPathImg(String URLimagenes){
+	 private String[] setFullPathImg(String URLimagenes, String ip){
 		 String[] imagenes = null;
+		 String ruta = "http://" + ip + ":80/drupal/";
 		 if (!(URLimagenes.equals(null)))
 		 {
 			 imagenes = URLimagenes.split(";");		 
@@ -85,6 +84,8 @@ public class InformacionPuntoInteres extends Activity{
         
 	        Bundle bundle = getIntent().getExtras();
 	        int posicion = bundle.getInt("posicion");
+	        String ip = bundle.getString("IPDrupal");
+	        
 	        listaPuntosInteres = (ArrayList<PuntoInteres>) bundle.getSerializable("listaPuntosInteres");
 	        poiSeleccionado = listaPuntosInteres.get(posicion);
 	        
@@ -304,7 +305,7 @@ public class InformacionPuntoInteres extends Activity{
 	       // String URLimagenes = "http://imgur.com/3t8A3.jpg";
 	        
 	        //la ruta es local, la transformamos en la ruta absoluta
-	        final String[] imagenes = setFullPathImg(URLimagenes);
+	        final String[] imagenes = setFullPathImg(URLimagenes, ip);
 	       
 	        imgAdapter = new ImageAdapter(this, imagenes);
 	        g.setAdapter(imgAdapter);

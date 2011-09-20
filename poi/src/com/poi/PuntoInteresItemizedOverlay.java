@@ -29,14 +29,15 @@ public class PuntoInteresItemizedOverlay extends ItemizedOverlay {
 	ArrayList<PuntoInteres> listaPuntosInteres = new ArrayList<PuntoInteres>();
 	String[] imagenes;
 	String puntoActual;
+	String ip;
 	
-	
-	public PuntoInteresItemizedOverlay(Drawable defaultMarker, Context context, ArrayList<PuntoInteres> listaPoi, String[] imagenes, String puntoActual) {
+	public PuntoInteresItemizedOverlay(Drawable defaultMarker, Context context, ArrayList<PuntoInteres> listaPoi, String[] imagenes, String puntoActual, String ip) {
 		super(boundCenterBottom(defaultMarker));
 		this.ctx = context;
 		this.listaPuntosInteres = listaPoi;
 		this.imagenes = imagenes;
 		this.puntoActual = puntoActual;
+		this.ip = ip;
 		
 	}
 	
@@ -88,6 +89,7 @@ public class PuntoInteresItemizedOverlay extends ItemizedOverlay {
 						bundle.putString("puntoActual", puntoActual);
 						bundle.putSerializable("listaPuntosInteres", listaPuntosInteres);
 						bundle.putInt("posicion", position);
+						bundle.putString("IPDrupal", ip);
 						intent.putExtras(bundle);
 						ctx.startActivity(intent);
 						

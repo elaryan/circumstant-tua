@@ -19,4 +19,7 @@
 <string name="modificarradio">Modificar radio de búsqueda</string>
 <string name="cargando">Cargando...</string>
 <string name="botonmapa">Mapa</string>
+<string name="localhost">localhost</string>
+<string name="indicarip">Indicar IP</string>
+<string name="promptorigen">Sitio Drupal</string>
 </resources>

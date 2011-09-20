@@ -50,7 +50,7 @@ public class MapaPuntosInteres extends MapActivity{
         
         //obtenemos el array de coordenadas que pasamos desde la actividad anterior
         Bundle bundle = getIntent().getExtras();
-        
+        final String ip = bundle.getString("IPDrupal");
         //obtenemos la lista de establecimientos
        listaPoi = (ArrayList<PuntoInteres>)getIntent().getExtras().get("listaPuntosInteres");
         
@@ -88,7 +88,7 @@ public class MapaPuntosInteres extends MapActivity{
        	 Log.d("listaPoiMapa", ((Integer)i).toString() + " " + listaPoi.get(i).getNombre());
 
         }
-       PuntoInteresItemizedOverlay itemizedOverlayGlobo = new PuntoInteresItemizedOverlay(drawable, this, listaPoi, imagenes, puntoActual);
+       PuntoInteresItemizedOverlay itemizedOverlayGlobo = new PuntoInteresItemizedOverlay(drawable, this, listaPoi, imagenes, puntoActual, ip);
       
        //mostramos los establecimientos
        
@@ -117,6 +117,7 @@ public class MapaPuntosInteres extends MapActivity{
        		Intent intent = new Intent(MapaPuntosInteres.this, ListadoPuntosInteres.class);
        		Bundle bundle = new Bundle();
        		bundle.putString("idCatSeleccionada", categoriaSeleccionada);
+       		bundle.putString("IPDrupal", ip);
    	    	intent.putExtras(bundle);	    	
    	        startActivityForResult(intent, 0);
        	}

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import com.poi.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -40,11 +41,12 @@ public class ListadoCategorias extends Activity {
         final ListView listaCat = (ListView) findViewById(R.id.ListView01);
        
        // String url = "http://im.dygrafilms.es:8081/es/services/json";
-        //String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
+       // String urlJSON = "http://10.0.2.2:80/drupal/?q=services/json";
         
-      //  String urlJSON = "http://192.168.1.130:80/drupal/?q=services/json";//para depurar en dispositivo, revisar IP
-        String urlJSON = "http://192.168.1.102:80/drupal/?q=services/json";
-        
+    	Bundle bundle = getIntent().getExtras();
+        final String ip = bundle.getString("IPDrupal");
+        String urlJSON = "http://" + ip + ":80/drupal/?q=services/json";//para depurar en dispositivo, revisar IP
+      
         Uri uri = Uri.parse(urlJSON);
         Log.d("uri - porto", uri.getPort()+"");
        
@@ -129,6 +131,7 @@ public class ListadoCategorias extends Activity {
 		        bundle.putString("categoria", listaCat.getItemAtPosition(position).toString());
 		        bundle.putString("idCatSeleccionada", ID[position-1]);
 		        bundle.putString("position",((Integer)position).toString() );
+		        bundle.putString("IPDrupal", ip);
 		        myIntent.putExtras(bundle);
 				startActivityForResult(myIntent, 0);
 			}       	
